@@ -1,0 +1,18 @@
+{
+  "name": "auth-api",
+  "version": "1.0.0",
+  "description": "A demonstration of authentication with Node.js, JWTs, and Oracle Database",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "The Oracle Database Advocates Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "jsonwebtoken": "^5.0.1",
+    "morgan": "^1.5.3"
+  }
+}
