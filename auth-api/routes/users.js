@@ -56,11 +56,17 @@ function insertUser(user, cb) {
                 'insert into PARENT ( ' +
                 '   USERNAME, ' +
                 '   PASSWORD, ' +
+                '   FNAME, ' +
+                '   LNAME, ' +
+                '   DOB, ' +
                 //'   role ' +
                 ') ' +
                 'values (' +
                 '    :username, ' +
                 '    :password, ' +
+                '    "kiru", ' +
+                '    "G", ' +
+                '    "22-10-97", ' +
                 //'    \'BASE\' ' +
                 ') ' +
                 'returning ' +
@@ -105,7 +111,7 @@ function insertUser(user, cb) {
                     cb(null, {
                         id: results.outBinds.rid[0],
                         username: results.outBinds.rusername[0],
-                        role: results.outBinds.rrole[0]
+                        //role: results.outBinds.rrole[0]
                     });
 
                     connection.release(function(err) {
