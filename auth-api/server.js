@@ -18,6 +18,8 @@ app = express();
 
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
+
+
 app.use(session({secret: 'ssshhhhh'}));
 // router = express.Router();
 // router.get('/public_things', publicThings.get);
@@ -40,6 +42,8 @@ res.sendFile(path.join(__dirname + '/public/contact.html'));
 app.get('/blog', function (req, res) {
 res.sendFile(path.join(__dirname + '/public/blog.html'));
 });
+
+
 
 app.post('/login', function(req, res) {
 
@@ -69,6 +73,7 @@ app.post('/login', function(req, res) {
                       sess = req.session;
                       sess.username = req.body.username;
                       res.redirect('/index');
+
                     //  res.end('done ' + sess.username );
                }
 
@@ -77,6 +82,7 @@ app.post('/login', function(req, res) {
       }
   )
 });
+
 
 
 app.listen(port, function() {
