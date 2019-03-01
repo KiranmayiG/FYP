@@ -68,10 +68,16 @@ function post(req, res, next) {
                             role: role
                         };
 
-                        res.status(200).json({
-                            user: user,
-                            token: jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60})
-                        });
+                        // res.status(200).json({
+                        //     user: user,
+                        //     token: jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60})
+                        // });
+                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60});
+                         res.render('/index');
+                         res.json({
+                             user: user,
+                             token: token
+                         });
                     });
 
                     connection.release(function(err) {

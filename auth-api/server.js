@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(session({secret: 'ssshhhhh'}));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'html');
 
 
 router = express.Router();
@@ -43,8 +44,6 @@ res.sendFile(path.join(__dirname + '/public/contact.html'));
 app.get('/blog', function (req, res) {
 res.sendFile(path.join(__dirname + '/public/blog.html'));
 });
-
-
 
 app.post('/login', function(req, res) {
 

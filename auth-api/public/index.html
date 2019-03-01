@@ -43,6 +43,7 @@
 						<li><a href="index.html">Home</a></li>
 						<li><a href="#">About</a></li>
 						<li><a href="#">Courses</a></li>
+						<li id="test"></li>
 						<li id="login"><a data-toggle='modal' data-target='#myModal'>Login</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
@@ -68,7 +69,7 @@
           <h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Login</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" action="http://localhost:3000/api/logins" method="post">
+          <form role="form" action="http://localhost:3000/api/logins" method="post" onsubmit="f()">
             <div class="form-group">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
               <input type="email" class="form-control" name="username" id="username" placeholder="Enter email">
@@ -376,24 +377,20 @@ Days here overflow with opportunities to hone our skills, and with challenges th
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="C:\Users\Kiranmayi\Desktop\VJTI\FYP\Implementation\FYP\auth-api\routes\logins.js"></script>
 		<script>
-			console.log(payload.sub);
-			// function f(req, res){
-			//
-			// 	console.log("vchsh " + req.session.username);
-			// 	 if(req.session.username){
-			// 			document.getElementById("login").innerHTML = "Welcome "+ req.session.username;
-			// 	 }else{
-			// 		 document.getElementById("login").innerHTML = "<a data-toggle='modal' data-target='#myModal'>Login</a>";
-			// 	 }
-			//
-			// }
+		function f(){
+			console.log("Entered f");
+			let url="http://localhost:3000/api/logins";
+	        fetch(url, {method: "POST"}).then(response => response.json())
+	        .then( (result) => {
+	            console.log('success:', result)
+	            let div=document.getElementById('test');
+	            div.innerHTML=`name: ${result.user.fname}<br/>token: ${result.token}`;
+	        })
+	        .catch(error => console.log('error:', error));
+		}
 
-		//username = sess.getAttribute("username");
-
-
-		 </script>
+		</script>
 
 	</body>
 </html>
