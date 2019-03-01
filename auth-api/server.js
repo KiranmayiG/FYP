@@ -3,10 +3,10 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-//var oracleDbStore = require('express-oracle-session')(session);
-//var publicThings = require(__dirname + '/routes/publicThings.js');
-//var protectedThings = require(__dirname + '/routes/protectedThings.js');
+var publicThings = require(__dirname + '/routes/publicThings.js');
+var protectedThings = require(__dirname + '/routes/protectedThings.js');
 var users = require(__dirname + '/routes/users.js');
+var logins = require(__dirname + '/routes/logins.js');
 var app;
 var router;
 var port = 3000;
@@ -14,22 +14,23 @@ var path= require('path');
 var oracledb = require('oracledb');
 var config = require(__dirname + '/config.js');
 var sess;
-app = express();
 
+app = express();
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
-
-
 app.use(session({secret: 'ssshhhhh'}));
-// router = express.Router();
-// router.get('/public_things', publicThings.get);
-// router.get('/protected_things', protectedThings.get);
-// router.post('/users', users.post);
-// app.use('/api', router);
-
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cookieParser());
+
+
+router = express.Router();
+router.get('/public_things', publicThings.get);
+router.get('/protected_things', protectedThings.get);
+router.post('/users', users.post);
+router.post('/logins', logins.post);
+
+app.use('/api', router);
+
 
 app.get('/index', function (req, res) {
 res.sendFile(path.join(__dirname + '/public/index.html'));
@@ -73,17 +74,13 @@ app.post('/login', function(req, res) {
                       sess = req.session;
                       sess.username = req.body.username;
                       res.redirect('/index');
-
                     //  res.end('done ' + sess.username );
                }
-
                else res.send("Invalid Credentials. try again");
                  });
       }
   )
 });
-
-
 
 app.listen(port, function() {
     console.log('Web server listening on localhost:' + port);

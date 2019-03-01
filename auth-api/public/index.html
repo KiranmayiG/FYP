@@ -68,7 +68,7 @@
           <h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Login</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" action="http://localhost:3000/login" method="post">
+          <form role="form" action="http://localhost:3000/api/logins" method="post">
             <div class="form-group">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
               <input type="email" class="form-control" name="username" id="username" placeholder="Enter email">
@@ -366,8 +366,9 @@ Days here overflow with opportunities to hone our skills, and with challenges th
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
-
+		<script type="text/javascript" src="C:\Users\Kiranmayi\Desktop\VJTI\FYP\Implementation\FYP\auth-api\routes\logins.js"></script>
 		<script>
+			console.log(payload.sub);
 			// function f(req, res){
 			//
 			// 	console.log("vchsh " + req.session.username);

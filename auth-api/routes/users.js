@@ -5,7 +5,7 @@ var config = require(__dirname + '../../config.js');
 
 function post(req, res, next) {
     var user = {
-        username: req.body.username
+        email: req.body.email
     };
     var unhashedPassword = req.body.password;
 
@@ -29,19 +29,18 @@ function post(req, res, next) {
                 }
 
                 payload = {
-                    sub: user.username,
-                    pass: user.hashedPassword,
-                    //role: user.role
+                    sub: user.email,
+                    role: user.role
                 };
 
                 res.status(200).json({
                     user: user,
                     token: jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60})
-                  });
                 });
             });
         });
-    }
+    });
+}
 
 module.exports.post = post;
 
@@ -54,50 +53,43 @@ function insertUser(user, cb) {
             }
 
             connection.execute(
-                'insert into PARENT ( ' +
-                '   USERNAME, ' +
-                '   PASSWORD, ' +
-                '   FNAME, ' +
-                '   LNAME, ' +
-                '   DOB, ' +
-                //'   role ' +
+                'insert into jsao_users ( ' +
+                '   email, ' +
+                '   password, ' +
+                '   role ' +
                 ') ' +
                 'values (' +
-                '    :username , ' +
-                '    :password , ' +
-                '    "kiru", ' +
-                '    "G", ' +
-                '    "22-10-97", ' +
-                //'    \'BASE\' ' +
+                '    :email, ' +
+                '    :password, ' +
+                '    \'BASE\' ' +
                 ') ' +
                 'returning ' +
-                '   PARENT_ID, ' +
-                '   USERNAME, ' +
-                //'   role ' +
+                '   id, ' +
+                '   email, ' +
+                '   role ' +
                 'into ' +
                 '   :rid, ' +
-                '   :rusername, ' +
-               //'   :rrole',
+                '   :remail, ' +
+                '   :rrole',
                 {
-                    username: user.username.toLowerCase(),
+                    email: user.email.toLowerCase(),
                     password: user.hashedPassword,
                     rid: {
                         type: oracledb.NUMBER,
                         dir: oracledb.BIND_OUT
                     },
-                    rusername: {
+                    remail: {
                         type: oracledb.STRING,
                         dir: oracledb.BIND_OUT
                     },
-                    // rrole: {
-                    //     type: oracledb.STRING,
-                    //     dir: oracledb.BIND_OUT
-                    // }
+                    rrole: {
+                        type: oracledb.STRING,
+                        dir: oracledb.BIND_OUT
+                    }
 
                 },
                 {
                     autoCommit: true
-
                 },
                 function(err, results){
                     if (err) {
@@ -106,13 +98,14 @@ function insertUser(user, cb) {
                                 console.error(err.message);
                             }
                         });
-                      return cb(err);
+
+                        return cb(err);
                     }
 
                     cb(null, {
                         id: results.outBinds.rid[0],
-                        username: results.outBinds.rusername[0],
-                        //role: results.outBinds.rrole[0]
+                        email: results.outBinds.remail[0],
+                        role: results.outBinds.rrole[0]
                     });
 
                     connection.release(function(err) {
