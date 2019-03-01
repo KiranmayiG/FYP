@@ -6,6 +6,21 @@ var config = require(__dirname + '../../config.js');
 
 function post(req, res, next) {
     var role = req.body.role;
+    var query = '';
+
+    if(role == "FACULTY"){
+      query = 'select USERNAME as "username", PASSWORD as "password" from FACULTY where username = :username';
+    }
+    else if(role == "STUDENT"){
+      query = 'select USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
+    }
+    else if(role == "PARENT"){
+      query = 'select USERNAME as "username", PASSWORD as "password" from PARENT where username = :username';
+    }
+    else if(role == "ADMIN"){
+      //add later
+    }
+
     oracledb.getConnection(
         config.database,
         function(err, connection){
@@ -14,9 +29,7 @@ function post(req, res, next) {
             }
 
             connection.execute(
-
-                //if(role == "PARENT")
-                'select USERNAME as "username", PASSWORD as "password" from PARENT where username = :username',
+                query,
                 {
                     username: req.body.username
                 },
@@ -51,8 +64,8 @@ function post(req, res, next) {
                         }
 
                         payload = {
-                            sub: user.username //,
-                            //role: user.role
+                            sub: user.username,
+                            role: role
                         };
 
                         res.status(200).json({
