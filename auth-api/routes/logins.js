@@ -5,6 +5,7 @@ var config = require(__dirname + '../../config.js');
 
 
 function post(req, res, next) {
+    var role = req.body.role;
     oracledb.getConnection(
         config.database,
         function(err, connection){
@@ -13,7 +14,7 @@ function post(req, res, next) {
             }
 
             connection.execute(
-                var role = req.body.role;
+
                 //if(role == "PARENT")
                 'select USERNAME as "username", PASSWORD as "password" from PARENT where username = :username',
                 {
