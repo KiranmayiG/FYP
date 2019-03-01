@@ -77,6 +77,15 @@
               <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
               <input type="password" class="form-control" name = "password" id="password" placeholder="Enter password">
             </div>
+						<div class="form-group">
+              <label for="role"><span class="glyphicon glyphicon-user"></span> Login type</label>
+              <input type="text" list='login_type' placeholder="Select login type" name="role" id="role" class="form-control">
+                <datalist id="login_type">
+                  <option value="Student">
+                  <option value="Faculty">
+                  <option value="Admin">
+                </datalist>
+            </div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
             </div>
