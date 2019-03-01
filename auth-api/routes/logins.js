@@ -13,8 +13,8 @@ function post(req, res, next) {
             }
 
             connection.execute(
-                //role = req.body.role;
-                //if(role == "")
+                var role = req.body.role;
+                //if(role == "PARENT")
                 'select USERNAME as "username", PASSWORD as "password" from PARENT where username = :username',
                 {
                     username: req.body.username
