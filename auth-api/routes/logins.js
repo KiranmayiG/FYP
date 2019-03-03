@@ -3,6 +3,12 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
+const axios = require('axios')
+
+axios.post('https://flaviocopes.com/todos', {
+  todo: 'Buy the milk'
+})
+
 
 function post(req, res, next) {
     var role = req.body.role;
@@ -70,14 +76,11 @@ function post(req, res, next) {
 
                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
 
-                        // res.json({
-                        //     user: user,
-                        //     token: token
-                        // });
-                        res.send({
+                        res.status(200).json({
                             user: user,
                             token: token
                         });
+
                         // res.status(200).json({
                         //     user: user,
                         //     token: jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400})
