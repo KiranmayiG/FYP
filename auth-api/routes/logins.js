@@ -69,8 +69,12 @@ function post(req, res, next) {
                         };
 
                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
-                        res.set('authorization', token);
-                        res.status(200).json({
+
+                        // res.json({
+                        //     user: user,
+                        //     token: token
+                        // });
+                        res.send({
                             user: user,
                             token: token
                         });
