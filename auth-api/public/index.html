@@ -380,8 +380,8 @@ Days here overflow with opportunities to hone our skills, and with challenges th
 		<script>
 		function f(){
 			console.log("Entered f");
-			let url="http://localhost:3000/api/logins";
-	        fetch(url, {method: "POST"}).then(response => response.json())
+			let url="http://localhost:3000/api/get_token";
+	        fetch(url).then(response => response.json())
 	        .then( (result) => {
 	            console.log('success:', result)
 	            let div=document.getElementById('test');

@@ -68,16 +68,19 @@ function post(req, res, next) {
                             role: role
                         };
 
+                        var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
+                        res.set('authorization', token);
+                        res.status(200).json({
+                            user: user,
+                            token: token
+                        });
                         // res.status(200).json({
                         //     user: user,
-                        //     token: jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60})
+                        //     token: jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400})
                         // });
-                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60});
-                         res.render('/index');
-                         res.json({
-                             user: user,
-                             token: token
-                         });
+
+                         // res.render(__dirname + '../public/index.html');
+
                     });
 
                     connection.release(function(err) {
