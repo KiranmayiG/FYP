@@ -22,6 +22,7 @@ app.use(session({secret: 'ssshhhhh'}));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 router = express.Router();
 router.get('/public_things', publicThings.get);
 router.get('/protected_things', protectedThings.get);
@@ -29,7 +30,10 @@ router.post('/users', users.post);
 router.post('/logins', logins.post);
 
 router.get('/get_token', function(req, res) {
-  console.log(req.headers);
+  //console.log('REQUEST PRINT --> ', req.body.token);
+  //console.log(req.headers);
+  console.log(req.headers.authorization);
+
   var token = req.headers['x-access-token'] || req.headers['authorization'];
   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
 
