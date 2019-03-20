@@ -8,9 +8,9 @@
 
 		<title>Eden School</title>
 
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
 		<!-- Font Awesome Icon -->
@@ -21,472 +21,372 @@
     </head>
 	<body>
 
-		<!-- Header -->
-		<header id="header" class="transparent-nav">
-			<div class="container">
+	<!-- Header -->
+	<header id="header" class="transparent-nav">
+		<div class="container">
 
-				<div class="navbar-header">
-
-
-					<!-- Mobile toggle -->
-					<button class="navbar-toggle">
-						<span></span>
-					</button>
-					<!-- /Mobile toggle -->
-				</div>
+			<div class="navbar-header">
 
 
-
-				<!-- Navigation -->
-				<nav id="nav">
-					<ul class="main-menu nav navbar-nav navbar-right">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Courses</a></li>
-						<li id="test"></li>
-						<li id="login"><a data-toggle='modal' data-target='#myModal'>Login</a></li>
-						<li><a href="contact.html">Contact</a></li>
-						<li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">Upload
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a data-toggle='modal' data-target='#upload_assignment_modal'>Assignments</a></li>
-                    <li><a href="#">Dresses</a></li>
-                    <li><a href="#">Shorts & Skirts</a></li>
-                </ul>
-            </li>
-
-						<!-- <div class="dropdown">
-					    <button class="dropbtn">Upload
-					      <i class="fa fa-caret-down"></i>
-					    </button>
-					    <div class="dropdown-content">
-								<a data-toggle='modal' data-target='#upload_assignment_modal'>Assignments</a>
-					      <a href="upload_assignment">Notes</a>
-					      <a href="#">Videos</a>
-					    </div>
-					  </div> -->
-					</ul>
-				</nav>
-				<!-- /Navigation -->
-
+				<!-- Mobile toggle -->
+				<button class="navbar-toggle">
+					<span></span>
+				</button>
+				<!-- /Mobile toggle -->
 			</div>
-		</header>
 
 
-<!-- start uplaod modal -->
 
-<div class="container">
+			<!-- Navigation -->
+			<nav id="nav">
+				<ul class="main-menu nav navbar-nav navbar-right">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Courses</a></li>
+					<li id="test"></li>
+					<li id="login"><a data-toggle='modal' data-target='#login_modal'>Login</a></li>
+					<li><a href="contact.html">Contact</a></li>
+					<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">Upload
+                  <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a data-toggle='modal' data-target='#upload_assignment_modal' style="color:grey">Assignments</a></li>
+                  <li><a data-toggle='modal' data-target='#upload_notes_modal' style="color:grey">Notes</a></li>
+                  <li><a data-toggle='modal' data-target='#upload_videos_modal' style="color:grey">Videos</a></li>
+              </ul>
+          </li>
+				</ul>
+			</nav>
+			<!-- /Navigation -->
 
-<!-- Trigger the modal with a button -->
-<!-- <button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button> -->
-
-<!-- Modal -->
-<div class="modal fade" id="upload_assignment_modal" role="dialog">
-<div class="modal-dialog">
-
-	<!-- Modal content-->
-	<div class="modal-content">
-		<div class="modal-header" style="padding:35px 50px;">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Login</h4>
 		</div>
-		<div class="modal-body" style="padding:40px 50px;">
-			<form id="frmUploader" enctype="multipart/form-data" action="api/upload/" method="post">
-				<div class="form-group">
-					<label for="assignment_name">Name</label>
-					<input type="text" class="form-control" name="assignment_name" id="assignment_name" placeholder="Enter Assignment Name">
-				</div>
-				<div class="form-group">
-					<label for="course">Course</label>
-					<input type="text" list='course_list' placeholder="Select Course" name="course" id="course" class="form-control">
-						<datalist id="course_list">
-							<option value="A">
-							<option value="B">
-							<option value="C">
-							<option value="D">
-						</datalist>
-				</div>
-				<div class="form-group">
-					<input type="file" name="fileUploader" multiple />
-				</div>
+	</header>
 
-					<button type="submit" class="btn btn-success btn-block main-button">Upload</button>
-			</form>
+<!-- include login modal -->
+<div id="include_login_modal"></div>
+
+<!-- include uplaod modal -->
+<div id="include_assignment_modal"></div>
+
+<!-- /Header -->
+
+
+<!-- Home -->
+<div id="home" class="hero-area">
+
+	<!-- Backgound Image -->
+	<div class="bg-image bg-parallax overlay" style="background-image:url(./img/home-background.jpg)"></div>
+	<!-- /Backgound Image -->
+
+	<div class="home-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h1 class="white-text">Eden School</h1>
+					<p class="lead white-text">We envision a better, brighter India to be realized in the minds and hearts of our students.
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
 
 </div>
-</div>
-</div>
+<!-- /Home -->
 
+<!-- About -->
+<div id="about" class="section">
 
-<!-- end uplaod modal -->
-		<div class="container">
+	<!-- container -->
+	<div class="container">
 
-  <!-- Trigger the modal with a button -->
-   <!-- <button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button> -->
+		<!-- row -->
+		<div class="row">
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+			<div class="col-md-6">
+				<div class="section-header">
+					<h2>Welcome to Eden</h2>
+				</div>
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Login</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" action="http://localhost:3000/api/logins" method="post">
-					<!-- <form role="form">  add onsubmit if required-->
-            <div class="form-group">
-              <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="email" class="form-control" name="username" id="username" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-              <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name = "password" id="password" placeholder="Enter password">
-            </div>
-						<div class="form-group">
-              <label for="role"><span class="glyphicon glyphicon-user"></span> Login type</label>
-              <input type="text" list='login_type' placeholder="Select login type" name="role" id="role" class="form-control">
-                <datalist id="login_type">
-                  <option value="FACULTY">
-                  <option value="STUDENT">
-									<option value="PARENT">
-                  <option value="ADMIN">
-                </datalist>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="" checked>Remember me</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block main-button"><span class="glyphicon glyphicon-off"></span> Login</button>
-          </form>
-        </div>
-				<div id="token-display">
-            </div>
-        <div class="modal-footer">
-          <p>Forgot <a href="#">Password?</a></p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-		<!-- /Header -->
-
-
-		<!-- Home -->
-		<div id="home" class="hero-area">
-
-			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./img/home-background.jpg)"></div>
-			<!-- /Backgound Image -->
-
-			<div class="home-wrapper">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8">
-							<h1 class="white-text">Eden School</h1>
-							<p class="lead white-text">We envision a better, brighter India to be realized in the minds and hearts of our students.
-							</p>
-						</div>
+				<!-- feature -->
+				<div class="feature">
+					<i class="feature-icon fa fa-flask"></i>
+					<div class="feature-content">
+						<h4>Latest Events</h4>
+						<p><br></p>
 					</div>
+				</div>
+				<!-- /feature -->
+
+				<!-- feature -->
+				<div class="feature">
+					<i class="feature-icon fa fa-users"></i>
+					<div class="feature-content">
+						<h4>Announcement</h4>
+						<p><br></p>
+					</div>
+				</div>
+				<!-- /feature -->
+
+				<!-- feature -->
+				<div class="feature">
+					<i class="feature-icon fa fa-comments"></i>
+					<div class="feature-content">
+						<h4>Download</h4>
+						<p></p>
+					</div>
+				</div>
+				<!-- /feature -->
+
+			</div>
+
+			<div class="col-md-6">
+				<div class="about-img">
+					<img src="./img/about.png" alt="">
 				</div>
 			</div>
 
 		</div>
-		<!-- /Home -->
+		<!-- row -->
 
-		<!-- About -->
-		<div id="about" class="section">
-
-			<!-- container -->
-			<div class="container">
-
-				<!-- row -->
-				<div class="row">
-
-					<div class="col-md-6">
-						<div class="section-header">
-							<h2>Welcome to Eden</h2>
-						</div>
-
-						<!-- feature -->
-						<div class="feature">
-							<i class="feature-icon fa fa-flask"></i>
-							<div class="feature-content">
-								<h4>Latest Events</h4>
-								<p><br></p>
-							</div>
-						</div>
-						<!-- /feature -->
-
-						<!-- feature -->
-						<div class="feature">
-							<i class="feature-icon fa fa-users"></i>
-							<div class="feature-content">
-								<h4>Announcement</h4>
-								<p><br></p>
-							</div>
-						</div>
-						<!-- /feature -->
-
-						<!-- feature -->
-						<div class="feature">
-							<i class="feature-icon fa fa-comments"></i>
-							<div class="feature-content">
-								<h4>Download</h4>
-								<p></p>
-							</div>
-						</div>
-						<!-- /feature -->
-
-					</div>
-
-					<div class="col-md-6">
-						<div class="about-img">
-							<img src="./img/about.png" alt="">
-						</div>
-					</div>
-
-				</div>
-				<!-- row -->
-
-			</div>
-			<!-- container -->
-		</div>
-		<!-- /About -->
+	</div>
+	<!-- container -->
+</div>
+<!-- /About -->
 
 
-		<div id="cta" class="section">
+<div id="cta" class="section">
 
-			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./img/cta1-background.jpg)"></div>
-			<!-- /Backgound Image -->
+	<!-- Backgound Image -->
+	<div class="bg-image bg-parallax overlay" style="background-image:url(./img/cta1-background.jpg)"></div>
+	<!-- /Backgound Image -->
 
-			<!-- container -->
-			<div class="container">
+	<!-- container -->
+	<div class="container">
 
-				<!-- row -->
-				<div class="row">
+		<!-- row -->
+		<div class="row">
 
-					<div class="col-md-10">
-						<h2 class="white-text">Student's Speak</h2>
-						<p class="lead white-text">
+			<div class="col-md-10">
+				<h2 class="white-text">Student's Speak</h2>
+				<p class="lead white-text">
 "I have been infused with Eden's spirit. This spirit, an amalgamation of the feelings of oneness and belonging, with a healthy competitive streak mixed in for good measure, is the reason we perform exceptionally well at inter-school fests and sporting events. There is never a dearth of cheerleaders here, and everyone has got each other’s back!
 Days here overflow with opportunities to hone our skills, and with challenges that chip away at our base qualities, ensuring that we are no longer diamonds in the rough. I am utterly grateful for the elocution, drama, creative writing, quiz and dance competitions- events that made me shed my inhibitions and helped me discover the wings I never thought I had. It is the people who make our school what it is. Principal, teachers, students and staff collectively personify the commendable qualities of excellence, sincerity, and perseverance. The quality of education here, which places equal emphasis on academics, moral studies and the all-round development of the students, spurs Hiraites to aim for the stars, with their feet planted firmly on the ground."</p>
 
-					</div>
-
-				</div>
-				<!-- /row -->
-
 			</div>
-			<!-- /container -->
 
 		</div>
-		<!-- /Call To Action -->
+		<!-- /row -->
 
-		<!-- Why us -->
-		<div id="why-us" class="section">
+	</div>
+	<!-- /container -->
 
-			<!-- container -->
-			<div class="container">
+</div>
+<!-- /Call To Action -->
 
-				<!-- row -->
-				<div class="row">
-					<div class="section-header text-center">
-						<h2>Why Edusite</h2>
-						<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-					</div>
+<!-- Why us -->
+<div id="why-us" class="section">
 
-					<!-- feature -->
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="feature-icon fa fa-flask"></i>
-							<div class="feature-content">
-								<h4>Online Courses</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-					</div>
-					<!-- /feature -->
+	<!-- container -->
+	<div class="container">
 
-					<!-- feature -->
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="feature-icon fa fa-users"></i>
-							<div class="feature-content">
-								<h4>Expert Teachers</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-					</div>
-					<!-- /feature -->
-
-					<!-- feature -->
-					<div class="col-md-4">
-						<div class="feature">
-							<i class="feature-icon fa fa-comments"></i>
-							<div class="feature-content">
-								<h4>Community</h4>
-								<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
-							</div>
-						</div>
-					</div>
-					<!-- /feature -->
-
-				</div>
-				<!-- /row -->
-
-				<hr class="section-hr">
-
-				<!-- row -->
-				<div class="row">
-
-					<div class="col-md-6">
-						<h3>Persius imperdiet incorrupte et qui, munere nusquam et nec.</h3>
-						<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-						<p>No vel facete sententiae, quodsi dolores no quo, pri ex tamquam interesset necessitatibus. Te denique cotidieque delicatissimi sed. Eu doming epicurei duo. Sit ea perfecto deseruisse theophrastus. At sed malis hendrerit, elitr deseruisse in sit, sit ei facilisi mediocrem.</p>
-					</div>
-
-					<div class="col-md-5 col-md-offset-1">
-						<a class="about-video" href="#">
-							<img src="./img/about-video.jpg" alt="">
-							<i class="play-icon fa fa-play"></i>
-						</a>
-					</div>
-
-				</div>
-				<!-- /row -->
-
+		<!-- row -->
+		<div class="row">
+			<div class="section-header text-center">
+				<h2>Why Edusite</h2>
+				<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
 			</div>
-			<!-- /container -->
+
+			<!-- feature -->
+			<div class="col-md-4">
+				<div class="feature">
+					<i class="feature-icon fa fa-flask"></i>
+					<div class="feature-content">
+						<h4>Online Courses</h4>
+						<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
+					</div>
+				</div>
+			</div>
+			<!-- /feature -->
+
+			<!-- feature -->
+			<div class="col-md-4">
+				<div class="feature">
+					<i class="feature-icon fa fa-users"></i>
+					<div class="feature-content">
+						<h4>Expert Teachers</h4>
+						<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
+					</div>
+				</div>
+			</div>
+			<!-- /feature -->
+
+			<!-- feature -->
+			<div class="col-md-4">
+				<div class="feature">
+					<i class="feature-icon fa fa-comments"></i>
+					<div class="feature-content">
+						<h4>Community</h4>
+						<p>Ceteros fuisset mei no, soleat epicurei adipiscing ne vis. Et his suas veniam nominati.</p>
+					</div>
+				</div>
+			</div>
+			<!-- /feature -->
 
 		</div>
-		<!-- /Why us -->
+		<!-- /row -->
 
-		<!-- Contact CTA -->
-		<div id="contact-cta" class="section">
+		<hr class="section-hr">
 
-			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./img/cta2-background.jpg)"></div>
-			<!-- Backgound Image -->
+		<!-- row -->
+		<div class="row">
 
-			<!-- container -->
-			<div class="container">
-
-				<!-- row -->
-				<div class="row">
-
-					<div class="col-md-8 col-md-offset-2 text-center">
-						<h2 class="white-text">Contact Us</h2>
-						<p class="lead white-text">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-						<a class="main-button icon-button" href="#">Contact Us Now</a>
-					</div>
-
-				</div>
-				<!-- /row -->
-
+			<div class="col-md-6">
+				<h3>Persius imperdiet incorrupte et qui, munere nusquam et nec.</h3>
+				<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+				<p>No vel facete sententiae, quodsi dolores no quo, pri ex tamquam interesset necessitatibus. Te denique cotidieque delicatissimi sed. Eu doming epicurei duo. Sit ea perfecto deseruisse theophrastus. At sed malis hendrerit, elitr deseruisse in sit, sit ei facilisi mediocrem.</p>
 			</div>
-			<!-- /container -->
+
+			<div class="col-md-5 col-md-offset-1">
+				<a class="about-video" href="#">
+					<img src="./img/about-video.jpg" alt="">
+					<i class="play-icon fa fa-play"></i>
+				</a>
+			</div>
 
 		</div>
-		<!-- /Contact CTA -->
+		<!-- /row -->
 
-		<!-- Footer -->
-		<footer id="footer" class="section">
+	</div>
+	<!-- /container -->
 
-			<!-- container -->
-			<div class="container">
+</div>
+<!-- /Why us -->
 
-				<!-- row -->
-				<div class="row">
-				</div>
-				<!-- /row -->
+<!-- Contact CTA -->
+<div id="contact-cta" class="section">
 
-				<!-- row -->
-				<div id="bottom-footer" class="row">
+	<!-- Backgound Image -->
+	<div class="bg-image bg-parallax overlay" style="background-image:url(./img/cta2-background.jpg)"></div>
+	<!-- Backgound Image -->
 
-					<!-- social -->
-					<div class="col-md-4 col-md-push-8">
-						<ul class="footer-social">
-							<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-							<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-						</ul>
-					</div>
-					<!-- /social -->
+	<!-- container -->
+	<div class="container">
 
-					<!-- copyright -->
-					<div class="col-md-8 col-md-pull-4">
-						<div class="footer-copyright">
-						</div>
-					</div>
-					<!-- /copyright -->
+		<!-- row -->
+		<div class="row">
 
-				</div>
-				<!-- row -->
-
+			<div class="col-md-8 col-md-offset-2 text-center">
+				<h2 class="white-text">Contact Us</h2>
+				<p class="lead white-text">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+				<a class="main-button icon-button" href="#">Contact Us Now</a>
 			</div>
-			<!-- /container -->
 
-		</footer>
-		<!-- /Footer -->
+		</div>
+		<!-- /row -->
 
-		<!-- preloader -->
-		<div id='preloader'><div class='preloader'></div></div>
-		<!-- /preloader -->
+	</div>
+	<!-- /container -->
+
+</div>
+<!-- /Contact CTA -->
+
+<!-- Footer -->
+<footer id="footer" class="section">
+
+	<!-- container -->
+	<div class="container">
+
+		<!-- row -->
+		<div class="row">
+		</div>
+		<!-- /row -->
+
+		<!-- row -->
+		<div id="bottom-footer" class="row">
+
+			<!-- social -->
+			<div class="col-md-4 col-md-push-8">
+				<ul class="footer-social">
+					<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+					<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+					<li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
+					<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+					<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
+					<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+				</ul>
+			</div>
+			<!-- /social -->
+
+			<!-- copyright -->
+			<div class="col-md-8 col-md-pull-4">
+				<div class="footer-copyright">
+				</div>
+			</div>
+			<!-- /copyright -->
+
+		</div>
+		<!-- row -->
+
+	</div>
+	<!-- /container -->
+
+</footer>
+<!-- /Footer -->
+
+<!-- preloader -->
+<div id='preloader'><div class='preloader'></div></div>
+<!-- /preloader -->
 
 
-		<!-- jQuery Plugins -->
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script>
-				$(document).ready(function() {
-										var options = {
-														beforeSubmit: showRequest, // pre-submit callback success: showResponse // post-submit callback }; // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); }); // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
-		</script>
-		<script>
-		// auth= function(){
-    //             var xhttp = new XMLHttpRequest();
-    //             //data={name:document.getElementById("username").value,password:document.getElementById("password").value}
-    //             xhttp.onreadystatechange = function() {
-    //                 if (xhttp.readyState==4 && xhttp.status==200) {
-    //                     var response = JSON.parse(xhttp.responseText);
-		// 										console.log('TOKEN --> ', response.token);
-    //                     document.getElementById("token-display").innerHTML = response.token;
-    //                 }
-    //                 if(xhttp.readyState==4 && xhttp.status==403){
-    //                   document.getElementById("token-display").innerHTML=JSON.parse(xhttp.responseText).message;
-    //                 }
-    //             };
-    //             xhttp.open("POST", "http://localhost:3000/api/logins", true);
-    //             xhttp.setRequestHeader("Content-type", 'application/json; charset=UTF-8');
-    //             //xhttp.send(JSON.stringify(data));
-    //         }
+<!-- jQuery Plugins -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script>
+$(function(){
+  $("#include_assignment_modal").load("upload_assignment_modal.html");
+	$("#include_login_modal").load("login_modal.html");
+
+});
+</script>
+<script>
+		$(document).ready(function() {
+								var options = {
+												beforeSubmit: showRequest, // pre-submit callback success: showResponse // post-submit callback }; // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); }); // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
+</script>
+<script>
+// auth= function(){
+//             var xhttp = new XMLHttpRequest();
+//             //data={name:document.getElementById("username").value,password:document.getElementById("password").value}
+//             xhttp.onreadystatechange = function() {
+//                 if (xhttp.readyState==4 && xhttp.status==200) {
+//                     var response = JSON.parse(xhttp.responseText);
+// 										console.log('TOKEN --> ', response.token);
+//                     document.getElementById("token-display").innerHTML = response.token;
+//                 }
+//                 if(xhttp.readyState==4 && xhttp.status==403){
+//                   document.getElementById("token-display").innerHTML=JSON.parse(xhttp.responseText).message;
+//                 }
+//             };
+//             xhttp.open("POST", "http://localhost:3000/api/logins", true);
+//             xhttp.setRequestHeader("Content-type", 'application/json; charset=UTF-8');
+//             //xhttp.send(JSON.stringify(data));
+//         }
 
 
-		function f(){
-			console.log("Entered f");
-			let url="http://localhost:3000/api/get_token";
-	        fetch(url).then(response => response.json())
-	        .then( (result) => {
-	            console.log('success:', result)
-	            let div=document.getElementById('test');
-	            div.innerHTML=`name: ${result.user.fname}<br/>token: ${result.token}`;
-	        })
-	        .catch(error => console.log('error:', error));
-		}
+function f(){
+	console.log("Entered f");
+	let url="http://localhost:3000/api/get_token";
+      fetch(url).then(response => response.json())
+      .then( (result) => {
+          console.log('success:', result)
+          let div=document.getElementById('test');
+          div.innerHTML=`name: ${result.user.fname}<br/>token: ${result.token}`;
+      })
+      .catch(error => console.log('error:', error));
+}
 
-		</script>
+</script>
 
 	</body>
 </html>
