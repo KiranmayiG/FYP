@@ -46,6 +46,16 @@
 						<li id="test"></li>
 						<li id="login"><a data-toggle='modal' data-target='#myModal'>Login</a></li>
 						<li><a href="contact.html">Contact</a></li>
+						<div class="dropdown">
+					    <button class="dropbtn">Upload
+					      <i class="fa fa-caret-down"></i>
+					    </button>
+					    <div class="dropdown-content">
+								<a data-toggle='modal' data-target='#upload_assignment_modal'>Assignments</a>
+					      <a href="upload_assignment">Notes</a>
+					      <a href="#">Videos</a>
+					    </div>
+					  </div>
 					</ul>
 				</nav>
 				<!-- /Navigation -->
@@ -53,6 +63,55 @@
 			</div>
 		</header>
 
+
+<!-- start uplaod modal -->
+
+<div class="container">
+
+<!-- Trigger the modal with a button -->
+<!-- <button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="upload_assignment_modal" role="dialog">
+<div class="modal-dialog">
+
+	<!-- Modal content-->
+	<div class="modal-content">
+		<div class="modal-header" style="padding:35px 50px;">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Login</h4>
+		</div>
+		<div class="modal-body" style="padding:40px 50px;">
+			<form id="frmUploader" enctype="multipart/form-data" action="api/upload/" method="post">
+				<div class="form-group">
+					<label for="assignment_name">Name</label>
+					<input type="text" class="form-control" name="assignment_name" id="assignment_name" placeholder="Enter Assignment Name">
+				</div>
+				<div class="form-group">
+					<label for="course">Course</label>
+					<input type="text" list='course_list' placeholder="Select Course" name="course" id="course" class="form-control">
+						<datalist id="course_list">
+							<option value="A">
+							<option value="B">
+							<option value="C">
+							<option value="D">
+						</datalist>
+				</div>
+				<div class="form-group">
+					<input type="file" name="fileUploader" multiple />
+				</div>
+
+					<button type="submit" class="btn btn-success btn-block main-button">Upload</button>
+			</form>
+		</div>
+	</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- end uplaod modal -->
 		<div class="container">
 
   <!-- Trigger the modal with a button -->
@@ -69,8 +128,8 @@
           <h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Login</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" action="http://localhost:3000/api/logins" method="post" onsubmit="f()">
-					<!-- <form role="form"> -->
+          <form role="form" action="http://localhost:3000/api/logins" method="post">
+					<!-- <form role="form">  add onsubmit if required-->
             <div class="form-group">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
               <input type="email" class="form-control" name="username" id="username" placeholder="Enter email">
@@ -399,6 +458,11 @@ Days here overflow with opportunities to hone our skills, and with challenges th
     //             //xhttp.send(JSON.stringify(data));
     //         }
 
+		$(document).ready(function() {
+								var options = {
+												beforeSubmit: showRequest
+											}
+										});
 		function f(){
 			console.log("Entered f");
 			let url="http://localhost:3000/api/get_token";

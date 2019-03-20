@@ -71,6 +71,8 @@ function post(req, res, next) {
                         };
 
                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
+
+
                         console.log(token);
                             if(token){
                             res.status(200).json({
@@ -104,6 +106,7 @@ function post(req, res, next) {
                         // });
 
                          // res.render(__dirname + '../public/index.html');
+                        // res.redirect('/get_user');
 
                     });
 
