@@ -70,6 +70,7 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form role="form" action="http://localhost:3000/api/logins" method="post" onsubmit="f()">
+					<!-- <form role="form"> -->
             <div class="form-group">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
               <input type="email" class="form-control" name="username" id="username" placeholder="Enter email">
@@ -94,6 +95,8 @@
               <button type="submit" class="btn btn-success btn-block main-button"><span class="glyphicon glyphicon-off"></span> Login</button>
           </form>
         </div>
+				<div id="token-display">
+            </div>
         <div class="modal-footer">
           <p>Forgot <a href="#">Password?</a></p>
         </div>
@@ -378,6 +381,24 @@ Days here overflow with opportunities to hone our skills, and with challenges th
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script>
+		// auth= function(){
+    //             var xhttp = new XMLHttpRequest();
+    //             //data={name:document.getElementById("username").value,password:document.getElementById("password").value}
+    //             xhttp.onreadystatechange = function() {
+    //                 if (xhttp.readyState==4 && xhttp.status==200) {
+    //                     var response = JSON.parse(xhttp.responseText);
+		// 										console.log('TOKEN --> ', response.token);
+    //                     document.getElementById("token-display").innerHTML = response.token;
+    //                 }
+    //                 if(xhttp.readyState==4 && xhttp.status==403){
+    //                   document.getElementById("token-display").innerHTML=JSON.parse(xhttp.responseText).message;
+    //                 }
+    //             };
+    //             xhttp.open("POST", "http://localhost:3000/api/logins", true);
+    //             xhttp.setRequestHeader("Content-type", 'application/json; charset=UTF-8');
+    //             //xhttp.send(JSON.stringify(data));
+    //         }
+
 		function f(){
 			console.log("Entered f");
 			let url="http://localhost:3000/api/get_token";

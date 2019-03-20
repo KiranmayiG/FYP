@@ -6,8 +6,6 @@ var config = require(__dirname + '../../config.js');
 const axios = require('axios')
 
 
-
-
 function post(req, res, next) {
     var role = req.body.role;
     var query = '';
@@ -72,8 +70,19 @@ function post(req, res, next) {
                             role: role
                         };
 
-                        var token = jwt.sign(payload, config.jwtSecretKey, {agent: req.headers['user-agent'], expiresIn: 86400});
-
+                        var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
+                        console.log(token);
+                            if(token){
+                            res.status(200).json({
+                              user: user,
+                              token: token
+                            });
+                        }
+                        else{
+                            res.status(403).json({
+                                message:"Not created"
+                            });
+                        }
                         //res.status(200).send('http://localhost:3000/api/get_token',{user: user,token: token});
                         // axios.post('http://localhost:3000/api/get_token', {
                         //   user: user,
@@ -84,11 +93,11 @@ function post(req, res, next) {
                         // .catch(function (error) {
                         //   console.log('ERROR --> ',error);
                         // });
-                        res.status(200).json({
-                            user: user,
-                            token: token
-                        });
-                        
+                        // res.status(200).json({
+                        //     user: user,
+                        //     token: token
+                        // });
+
                         // res.status(200).json({
                         //     user: user,
                         //     token: jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400})
