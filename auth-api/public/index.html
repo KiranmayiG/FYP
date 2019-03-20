@@ -46,7 +46,17 @@
 						<li id="test"></li>
 						<li id="login"><a data-toggle='modal' data-target='#myModal'>Login</a></li>
 						<li><a href="contact.html">Contact</a></li>
-						<div class="dropdown">
+						<li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Upload
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle='modal' data-target='#upload_assignment_modal'>Assignments</a></li>
+                    <li><a href="#">Dresses</a></li>
+                    <li><a href="#">Shorts & Skirts</a></li>
+                </ul>
+            </li>
+
+						<!-- <div class="dropdown">
 					    <button class="dropbtn">Upload
 					      <i class="fa fa-caret-down"></i>
 					    </button>
@@ -55,7 +65,7 @@
 					      <a href="upload_assignment">Notes</a>
 					      <a href="#">Videos</a>
 					    </div>
-					  </div>
+					  </div> -->
 					</ul>
 				</nav>
 				<!-- /Navigation -->
@@ -440,6 +450,11 @@ Days here overflow with opportunities to hone our skills, and with challenges th
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script>
+				$(document).ready(function() {
+										var options = {
+														beforeSubmit: showRequest, // pre-submit callback success: showResponse // post-submit callback }; // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); }); // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
+		</script>
+		<script>
 		// auth= function(){
     //             var xhttp = new XMLHttpRequest();
     //             //data={name:document.getElementById("username").value,password:document.getElementById("password").value}
@@ -458,11 +473,7 @@ Days here overflow with opportunities to hone our skills, and with challenges th
     //             //xhttp.send(JSON.stringify(data));
     //         }
 
-		$(document).ready(function() {
-								var options = {
-												beforeSubmit: showRequest
-											}
-										});
+
 		function f(){
 			console.log("Entered f");
 			let url="http://localhost:3000/api/get_token";
