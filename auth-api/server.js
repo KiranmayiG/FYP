@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var users = require(__dirname + '/routes/users.js');
 var logins = require(__dirname + '/routes/logins.js');
+var uploads_assignment = require(__dirname + '/routes/uploads_assignment.js');
+var uploads_notes = require(__dirname + '/routes/uploads_notes.js');
+var uploads_videos = require(__dirname + '/routes/uploads_videos.js');
 var app;
 var router;
 var port = 3000;
@@ -20,31 +23,9 @@ router = express.Router();
 router.post('/users', users.post);
 router.post('/logins', logins.post);
 
-var Storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, "./public/assignments");
-    },
-    filename: function(req, file, callback) {
-        //callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-        callback(null, file.originalname);
-    }
-});
-
-var upload = multer({
-     storage: Storage
- }).array("fileUploader", 3); //Field name and max count
-
- router.get("/", function(req, res) {
-     res.sendFile(__dirname + "/public/upload_assignment.html");
- });
- router.post("/upload", function(req, res) {
-     upload(req, res, function(err) {
-         if (err) {
-             return res.end("Something went wrong!");
-         }
-         return res.end("File uploaded sucessfully!.");
-     });
- });
+router.post('/upload_assignment', uploads_assignment.post);
+router.post('/upload_notes', uploads_notes.post);
+router.post('/upload_videos', uploads_videos.post);
 
 
 // router.get('/get_token', function(req, res) {

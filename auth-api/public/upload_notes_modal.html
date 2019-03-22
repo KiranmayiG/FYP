@@ -14,10 +14,10 @@
 			<h4 style="color:white">Upload Notes</h4>
 		</div>
 		<div class="modal-body" style="padding:40px 50px;">
-			<form id="frmUploader" enctype="multipart/form-data" action="api/upload/" method="post">
+			<form id="frmUploader" enctype="multipart/form-data" action="api/upload_notes/" method="post">
 				<div class="form-group">
-					<label for="assignment_name">Name</label>
-					<input type="text" class="form-control" name="assignment_name" id="assignment_name" placeholder="Enter Assignment Name">
+					<label for="notes_name">Name</label>
+					<input type="text" class="form-control" name="notes_name" id="notes_name" placeholder="Enter Notes Name">
 				</div>
 				<div class="form-group">
 					<label for="course">Course</label>
@@ -30,7 +30,7 @@
 						</datalist>
 				</div>
 				<div class="form-group">
-					<input type="file" name="fileUploader" multiple />
+					<input type="file" name="notesFileUploader" multiple />
 				</div>
 
 					<button type="submit" class="btn btn-success btn-block main-button">Upload</button>
