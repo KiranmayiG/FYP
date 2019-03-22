@@ -35,31 +35,6 @@
 			<!-- /Mobile toggle -->
 		</div>
 
-
-
-<<<<<<< HEAD
-		<!-- Navigation -->
-		<nav id="nav">
-			<ul class="main-menu nav navbar-nav navbar-right">
-				<li><a href="index.html">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Courses</a></li>
-				<li id="test"></li>
-				<li id="login"><a data-toggle='modal' data-target='#login_modal'>Login</a></li>
-				<li><a href="contact.html">Contact</a></li>
-				<li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">Upload
-                <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a data-toggle='modal' data-target='#upload_assignment_modal' style="color:grey">Assignments</a></li>
-                <li><a data-toggle='modal' data-target='#upload_notes_modal' style="color:grey">Notes</a></li>
-                <li><a data-toggle='modal' data-target='#upload_videos_modal' style="color:grey">Videos</a></li>
-            </ul>
-        </li>
-			</ul>
-		</nav>
-		<!-- /Navigation -->
-=======
 			<!-- Navigation -->
 			<nav id="nav">
 				<ul class="main-menu nav navbar-nav navbar-right">
@@ -84,9 +59,9 @@
               <a class="dropdown-toggle" data-toggle="dropdown">Add New
                   <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                  <li><a data-toggle='modal' data-target='#upload_assignment_modal' style="color:grey">Event</a></li>
-                  <li><a data-toggle='modal' data-target='#upload_notes_modal' style="color:grey">Course</a></li>
-                  <li><a data-toggle='modal' data-target='#upload_videos_modal' style="color:grey">Department</a></li>
+								<li><a data-toggle='modal' data-target='#add_event_modal' style="color:grey">Event</a></li>
+								<li><a data-toggle='modal' data-target='#add_course_modal' style="color:grey">Course</a></li>
+								<li><a data-toggle='modal' data-target='#add_department_modal' style="color:grey">Department</a></li>
               </ul>
           </li>
 				<!-- Saloni's edit to add end
@@ -96,16 +71,16 @@
 						<a class="dropdown-toggle" data-toggle="dropdown">Update existing
 								<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-								<li><a data-toggle='modal' data-target='#upload_assignment_modal' style="color:grey">Event</a></li>
-								<li><a data-toggle='modal' data-target='#upload_notes_modal' style="color:grey">Course</a></li>
-								<li><a data-toggle='modal' data-target='#upload_videos_modal' style="color:grey">Department</a></li>
+								<li><a data-toggle='modal' data-target='#update_event_modal' style="color:grey">Event</a></li>
+								<li><a data-toggle='modal' data-target='#update_course_modal' style="color:grey">Course</a></li>
+								<li><a data-toggle='modal' data-target='#update_department_modal' style="color:grey">Department</a></li>
 						</ul>
 				</li>
 
 				</ul>
 			</nav>
 			<!-- /Navigation -->
->>>>>>> d6d2f5d8f39054998b58b7ce2de98006fb1c6ca7
+
 
 	</div>
 </header>
@@ -121,6 +96,24 @@
 
 <!-- include videos modal -->
 <div id="include_videos_modal"></div>
+
+<!-- include add_course modal -->
+<div id="include_add_course_modal"></div>
+
+<!-- include add_department modal -->
+<div id="include_add_department_modal"></div>
+
+<!-- include add_event modal -->
+<div id="include_add_event_modal"></div>
+
+<!-- include update_course modal -->
+<div id="include_update_course_modal"></div>
+
+<!-- include update_department modal -->
+<div id="include_update_department_modal"></div>
+
+<!-- include update_event modal -->
+<div id="include_update_event_modal"></div>
 
 <!-- /Header -->
 
@@ -400,6 +393,12 @@ Days here overflow with opportunities to hone our skills, and with challenges th
 $(function(){
   $("#include_assignment_modal").load("upload_assignment_modal.html");
 	$("#include_login_modal").load("login_modal.html");
+	$("#include_add_course_modal").load("add_course.html");
+	$("#include_add_department_modal").load("add_department.html");
+	$("#include_add_event_modal").load("add_event.html");
+	$("#include_update_course_modal").load("update_course.html");
+	$("#include_update_department_modal").load("update_department.html");
+	$("#include_update_event_modal").load("update_event.html");
 
 });
 </script>
