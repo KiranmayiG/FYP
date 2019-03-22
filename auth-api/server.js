@@ -15,11 +15,8 @@ var oracledb = require('oracledb');
 var config = require(__dirname + '/config.js');
 var sess;
 app = express();
-
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
-
-
 app.use(session({secret: 'ssshhhhh'}));
 // router = express.Router();
 // router.get('/public_things', publicThings.get);
