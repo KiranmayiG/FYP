@@ -68,6 +68,7 @@ function post(req, res, next) {
                             return;
                         }
 
+                        user.role = role;
                         payload = {
                             sub: user,
                             role: role
@@ -76,12 +77,13 @@ function post(req, res, next) {
                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: '24h'});
 
                         if(token){
-                          res.cookie('token', token)
-                          res.json({
-                            success: true,
-                            message: 'Authentication successful!',
-                            token: token
-                          });
+                          res.cookie('token', token);
+                          res.redirect('/index');
+                          // res.json({
+                          //   success: true,
+                          //   message: 'Authentication successful!',
+                          //   token: token
+                          // });
                         }else{
                           res.status(403).json({
                               message:"Not created"

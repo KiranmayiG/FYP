@@ -40,7 +40,12 @@ const withAuthUserId = [
 
 router.get('/get_user', ...withAuthUserId, (req, res) => {
   console.log(req['authUserId']);
+  res.json({user: req['authUserId']});
+});
 
+router.get('/logout', function(req, res) {
+  res.clearCookie("token");
+  res.redirect('/index');
 });
 //app.get('/get_user', check_token.checkToken, logins.get);
 
