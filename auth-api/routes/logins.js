@@ -2,6 +2,7 @@ var oracledb = require('oracledb');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
+const cookieParser = require('cookie-parser');
 
 const axios = require('axios')
 
@@ -14,7 +15,7 @@ function post(req, res, next) {
       query = 'select USERNAME as "username", PASSWORD as "password" from FACULTY where username = :username';
     }
     else if(role == "STUDENT"){
-      query = 'select USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
+      query = 'select PARENT_ID as "parent_id", USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
     }
     else if(role == "PARENT"){
       query = 'select USERNAME as "username", PASSWORD as "password" from PARENT where username = :username';
@@ -65,8 +66,10 @@ function post(req, res, next) {
                             return;
                         }
 
+                        user.role = role;
+                        user.id =
                         payload = {
-                            sub: user.username,
+                            sub: user,
                             role: role
                         };
 
@@ -75,6 +78,7 @@ function post(req, res, next) {
                         //console.log(req.headers);
 
                         if(token){
+                          res.cookie('jwt', token)
                           res.json({
                             success: true,
                             message: 'Authentication successful!',
@@ -137,7 +141,16 @@ function post(req, res, next) {
 module.exports.post = post;
 
 function get(req, res, next) {
-    console.log("body ",req.body, " header ", req.headers);
+    console.log("body ",req.cookies['jwt'], " header ", req.headers);
+    const withAuthUserId = [
+      cookieParser(),
+      (req, res, next) => {
+        const claims = jsonwebtoken.verify(req.cookies['jwt'], config.jwtSecretKey)
+        console.log("parser ", claims['sub']);
+        req['authUserId'] = claims['sub']
+        next()
+      }
+    ];
     res.redirect('/index');
 }
 
