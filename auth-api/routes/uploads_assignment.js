@@ -26,8 +26,8 @@ function post(req, res, next) {
         return res.end("Assignment uploaded sucessfully!.");
     });
 
-    // var name = req.body.name;
-    // var course = req.body.course;
+     var name = req.body.name;
+     var course = req.body.course;
     // var query = '';
     //
     // if(role == "FACULTY"){

@@ -26,7 +26,7 @@ function post(req, res, next) {
        return res.end("Video uploaded sucessfully!.");
    });
 
-    // var name = req.body.name;
+    //var name = req.body.name;
     // var course = req.body.course;
     // var query = '';
     //
