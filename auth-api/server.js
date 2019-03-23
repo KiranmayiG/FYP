@@ -11,7 +11,6 @@ var app;
 var router;
 var port = 3000;
 var path= require('path');
-var multer = require('multer');
 
 app = express();
 app.use(morgan('combined')); //logger
@@ -26,6 +25,8 @@ router.post('/logins', logins.post);
 router.post('/upload_assignment', uploads_assignment.post);
 router.post('/upload_notes', uploads_notes.post);
 router.post('/upload_videos', uploads_videos.post);
+
+router.get('/get_user', logins.get);
 
 
 // router.get('/get_token', function(req, res) {

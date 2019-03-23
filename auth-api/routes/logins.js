@@ -72,19 +72,27 @@ function post(req, res, next) {
 
                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
 
+                        if(token){
+                          res.redirect('/api/get_user');
+                        }else{
+                          res.status(403).json({
+                              message:"Not created"
+                          });
+                        }
 
-                        console.log(token);
-                            if(token){
-                            res.status(200).json({
-                              user: user,
-                              token: token
-                            });
-                        }
-                        else{
-                            res.status(403).json({
-                                message:"Not created"
-                            });
-                        }
+
+                        // console.log(token);
+                        // if(token){
+                        //     res.status(200).json({
+                        //       user: user,
+                        //       token: token
+                        //     });
+                        // }
+                        // else{
+                        //     res.status(403).json({
+                        //         message:"Not created"
+                        //     });
+                        // }
                         //res.status(200).send('http://localhost:3000/api/get_token',{user: user,token: token});
                         // axios.post('http://localhost:3000/api/get_token', {
                         //   user: user,
@@ -106,7 +114,7 @@ function post(req, res, next) {
                         // });
 
                          // res.render(__dirname + '../public/index.html');
-                        // res.redirect('/get_user');
+
 
                     });
 
@@ -121,3 +129,9 @@ function post(req, res, next) {
 }
 
 module.exports.post = post;
+
+function get(req, res, next) {
+    console.log("body ",req.body, " header ", req.headers);
+}
+
+module.exports.get = get;

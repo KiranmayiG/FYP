@@ -408,26 +408,17 @@ $(function(){
 <script>
 		$(document).ready(function() {
 								var options = {
-												beforeSubmit: showRequest, // pre-submit callback success: showResponse // post-submit callback }; // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); }); // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
-</script>
-<script>
-// auth= function(){
-//             var xhttp = new XMLHttpRequest();
-//             //data={name:document.getElementById("username").value,password:document.getElementById("password").value}
-//             xhttp.onreadystatechange = function() {
-//                 if (xhttp.readyState==4 && xhttp.status==200) {
-//                     var response = JSON.parse(xhttp.responseText);
-// 										console.log('TOKEN --> ', response.token);
-//                     document.getElementById("token-display").innerHTML = response.token;
-//                 }
-//                 if(xhttp.readyState==4 && xhttp.status==403){
-//                   document.getElementById("token-display").innerHTML=JSON.parse(xhttp.responseText).message;
-//                 }
-//             };
-//             xhttp.open("POST", "http://localhost:3000/api/logins", true);
-//             xhttp.setRequestHeader("Content-type", 'application/json; charset=UTF-8');
-//             //xhttp.send(JSON.stringify(data));
-//         }
+												beforeSubmit: showRequest, // pre-submit callback
+												success: showResponse // post-submit callback
+											}; // bind to the form's submit event
+								$('#frmUploader').submit(function () {
+									$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
+									return false;
+									});
+								}); // pre-submit callback
+		function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback
+		function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
+
 
 
 function f(){
