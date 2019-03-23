@@ -5,7 +5,11 @@ var config = require(__dirname + '../../config.js');
 
 function post(req, res, next) {
     var user = {
-        username: req.body.username
+        username: req.body.username,
+        fname: req.body.fname,
+        lname: req.body.lname,
+        dob: req.body.dob,
+        role: req.body.role
     };
     var unhashedPassword = req.body.password;
 
@@ -30,22 +34,28 @@ function post(req, res, next) {
 
                 payload = {
                     sub: user.username,
-                    pass: user.hashedPassword,
-                    //role: user.role
+                    role: user.role
                 };
 
                 res.status(200).json({
                     user: user,
                     token: jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60})
-                  });
                 });
             });
         });
-    }
+    });
+}
 
 module.exports.post = post;
 
 function insertUser(user, cb) {
+    var query = '';
+    if(user.role == "PARENT"){
+      query = 'insert into PARENT (USERNAME, PASSWORD, FNAME, LNAME, DOB) '+
+      'values (:username, :password, :fname, :lname, TO_DATE(:dob, \'DD/MM/YY\')) '+
+      'returning PARENT_ID, USERNAME '+
+      'into :rid, :rusername' ;
+    }
     oracledb.getConnection(
         config.database,
         function(err, connection){
@@ -54,33 +64,13 @@ function insertUser(user, cb) {
             }
 
             connection.execute(
-                'insert into PARENT ( ' +
-                '   USERNAME, ' +
-                '   PASSWORD, ' +
-                '   FNAME, ' +
-                '   LNAME, ' +
-                '   DOB, ' +
-                //'   role ' +
-                ') ' +
-                'values (' +
-                '    :username , ' +
-                '    :password , ' +
-                '    "kiru", ' +
-                '    "G", ' +
-                '    "22-10-97", ' +
-                //'    \'BASE\' ' +
-                ') ' +
-                'returning ' +
-                '   PARENT_ID, ' +
-                '   USERNAME, ' +
-                //'   role ' +
-                'into ' +
-                '   :rid, ' +
-                '   :rusername, ' +
-               //'   :rrole',
+                query,
                 {
-                    username: user.username.toLowerCase(),
+                    username: user.username,
                     password: user.hashedPassword,
+                    fname: user.fname,
+                    lname: user.lname,
+                    dob: user.dob,
                     rid: {
                         type: oracledb.NUMBER,
                         dir: oracledb.BIND_OUT
@@ -88,16 +78,10 @@ function insertUser(user, cb) {
                     rusername: {
                         type: oracledb.STRING,
                         dir: oracledb.BIND_OUT
-                    },
-                    // rrole: {
-                    //     type: oracledb.STRING,
-                    //     dir: oracledb.BIND_OUT
-                    // }
-
+                    }
                 },
                 {
                     autoCommit: true
-
                 },
                 function(err, results){
                     if (err) {
@@ -106,13 +90,13 @@ function insertUser(user, cb) {
                                 console.error(err.message);
                             }
                         });
-                      return cb(err);
+
+                        return cb(err);
                     }
 
                     cb(null, {
                         id: results.outBinds.rid[0],
-                        username: results.outBinds.rusername[0],
-                        //role: results.outBinds.rrole[0]
+                        username: results.outBinds.rusername[0]
                     });
 
                     connection.release(function(err) {

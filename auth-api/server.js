@@ -2,21 +2,34 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
-//var oracleDbStore = require('express-oracle-session')(session);
-//var publicThings = require(__dirname + '/routes/publicThings.js');
-//var protectedThings = require(__dirname + '/routes/protectedThings.js');
 var users = require(__dirname + '/routes/users.js');
+var logins = require(__dirname + '/routes/logins.js');
+var uploads_assignment = require(__dirname + '/routes/uploads_assignment.js');
+var uploads_notes = require(__dirname + '/routes/uploads_notes.js');
+var uploads_videos = require(__dirname + '/routes/uploads_videos.js');
+var check_token = require('./check_token.js');
 var app;
 var router;
 var port = 3000;
 var path= require('path');
+<<<<<<< HEAD
 var oracledb = require('oracledb');
 var config = require(__dirname + '/config.js');
 var sess;
 app = express();
+||||||| merged common ancestors
+var oracledb = require('oracledb');
+var config = require(__dirname + '/config.js');
+var sess;
+app = express();
+
+=======
+
+app = express();
+>>>>>>> 01d8cddfcb84869a470a545c438109844b4f9031
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
+<<<<<<< HEAD
 app.use(session({secret: 'ssshhhhh'}));
 // router = express.Router();
 // router.get('/public_things', publicThings.get);
@@ -24,10 +37,99 @@ app.use(session({secret: 'ssshhhhh'}));
 // router.post('/users', users.post);
 // app.use('/api', router);
 
+||||||| merged common ancestors
+
+
+app.use(session({secret: 'ssshhhhh'}));
+// router = express.Router();
+// router.get('/public_things', publicThings.get);
+// router.get('/protected_things', protectedThings.get);
+// router.post('/users', users.post);
+// app.use('/api', router);
+
+=======
+>>>>>>> 01d8cddfcb84869a470a545c438109844b4f9031
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cookieParser());
 
+router = express.Router();
+router.post('/users', users.post);
+router.post('/logins', logins.post);
+
+router.post('/upload_assignment', uploads_assignment.post);
+router.post('/upload_notes', uploads_notes.post);
+router.post('/upload_videos', uploads_videos.post);
+
+app.get('/get_user', check_token.checkToken, logins.get);
+
+
+// router.get('/get_token', function(req, res) {
+//   //console.log('REQUEST PRINT --> ', req.body.token);
+//   console.log(req.body.);
+//   console.log(req.headers.authorization);
+//
+//   var token = req.headers['x-access-token'] || req.headers['authorization'];
+//   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
+//
+//   jwt.verify(token, config.secret, function(err, decoded) {
+//     if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+//
+//     res.status(200).send(decoded);
+//   });
+// });
+
+// router.use((req, res, next)=>{
+//         // check header or url parameters or post parameters for token
+//         var token = req.body.token || req.query.token || req.headers['x-access-token'];
+//         console.log('Token ', token);
+//         if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
+//
+//           jwt.verify(token, config.secret, function(err, decoded) {
+//             if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+//
+//             res.status(200).send(decoded);
+//              });
+//         // if(token){
+//         //   //Decode the token
+//         //   jwt.verify(token, config.secret,(err,decod)=>{
+//         //     if(err){
+//         //       res.status(403).json({
+//         //         message:"Wrong Token"
+//         //       });
+//         //     }
+//         //     else{
+//         //       //If decoded then call next() so that respective route is called.
+//         //       req.decoded=decod;
+//         //       next();
+//         //     }
+//         //   });
+//         // }
+//
+// });
+
+// app.post('/getusers',(req,res)=>{
+//     var user_list=[];
+//     users.forEach((user)=>{
+//         user_list.push({"name":user.name});
+//     })
+//     res.send(JSON.stringify({users:user_list}));
+// });
+
+
+
+
+app.use('/api', router);
+
+// app.get('/get_user', function(res, req){
+//     console.log(req.user);
+//     if(req.user)
+//        res.render('/index', {user: req.user.username});
+//     else res.redirect('api/logins');
+// });
+//
+// router.get('/logins', function(req, res) {
+//     res.render('api/logins');
+// });
 app.get('/index', function (req, res) {
 res.sendFile(path.join(__dirname + '/public/index.html'));
 });
@@ -39,48 +141,6 @@ res.sendFile(path.join(__dirname + '/public/contact.html'));
 app.get('/blog', function (req, res) {
 res.sendFile(path.join(__dirname + '/public/blog.html'));
 });
-
-
-
-app.post('/login', function(req, res) {
-
-  oracledb.getConnection(
-      config.database,
-      function(err, connection){
-          if (err) {
-              return next(err);
-          }
-
-          connection.execute(
-            `SELECT * FROM PARENT where USERNAME= :1 and PASSWORD= :2`,
-            [req.body.username, req.body.password],
-
-
-              function(err, result) {
-                    if (err) {
-                      console.error(err.message);
-                      return;
-                    }
-
-                    if(result.rows.length == 1)
-                    {
-
-                      var user_sid= result.rows[0][0];
-
-                      sess = req.session;
-                      sess.username = req.body.username;
-                      res.redirect('/index');
-
-                    //  res.end('done ' + sess.username );
-               }
-
-               else res.send("Invalid Credentials. try again");
-                 });
-      }
-  )
-});
-
-
 
 app.listen(port, function() {
     console.log('Web server listening on localhost:' + port);

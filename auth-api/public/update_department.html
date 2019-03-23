@@ -1,0 +1,42 @@
+<div class="container">
+
+  <!-- Trigger the modal with a button -->
+   <!-- <button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="update_department_modal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 style="color:white">Update Department</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+
+          <form role="form" action="http://localhost:3000/api/logins" method="post">
+					<!-- <form role="form">  add onsubmit if required-->
+            <div class="form-group">
+
+              <div class="form-group">
+
+                <label for="name">Department Name</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Department Name">
+
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" name = "description" id="description" placeholder="Write Description here">
+              </div>
+
+            <button type="submit" class="btn btn-success btn-block main-button">Update</button>
+            <button type="submit" class="btn btn-success btn-block main-button">Delete</button>
+          </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
