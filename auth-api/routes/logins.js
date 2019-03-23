@@ -70,10 +70,16 @@ function post(req, res, next) {
                             role: role
                         };
 
-                        var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
+                        var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: '24h'});
+
+                        //console.log(req.headers);
 
                         if(token){
-                          res.redirect('/api/get_user');
+                          res.json({
+                            success: true,
+                            message: 'Authentication successful!',
+                            token: token
+                          });
                         }else{
                           res.status(403).json({
                               message:"Not created"
@@ -132,6 +138,7 @@ module.exports.post = post;
 
 function get(req, res, next) {
     console.log("body ",req.body, " header ", req.headers);
+    res.redirect('/index');
 }
 
 module.exports.get = get;
