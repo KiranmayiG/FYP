@@ -32,14 +32,14 @@ router.post('/upload_videos', uploads_videos.post);
 const withAuthUserId = [
   cookieParser(),
   (req, res, next) => {
-    const claims = jwt.verify(req.cookies['jwt'], config.jwtSecretKey)
+    const claims = jwt.verify(req.cookies['token'], config.jwtSecretKey)
     req['authUserId'] = claims['sub']
     next()
   }
 ];
 
 router.get('/get_user', ...withAuthUserId, (req, res) => {
-  console.log(req['authUserId'].username);
+  console.log(req['authUserId']);
 
 });
 //app.get('/get_user', check_token.checkToken, logins.get);

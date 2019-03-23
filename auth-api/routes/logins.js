@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 const cookieParser = require('cookie-parser');
 
-const axios = require('axios')
+
 
 
 function post(req, res, next) {
@@ -15,10 +15,12 @@ function post(req, res, next) {
       query = 'select USERNAME as "username", PASSWORD as "password" from FACULTY where username = :username';
     }
     else if(role == "STUDENT"){
-      query = 'select PARENT_ID as "parent_id", USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
+      query = 'select USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
     }
     else if(role == "PARENT"){
-      query = 'select USERNAME as "username", PASSWORD as "password" from PARENT where username = :username';
+      query = 'select PARENT_ID as "parent_id", USERNAME as "username", '+
+      'PASSWORD as "password", FNAME as "fname", LNAME as "lname", '+
+      'DOB as "dob", PHONE_NO as "phone" from PARENT where username = :username';
     }
     else if(role == "ADMIN"){
       //add later
@@ -66,8 +68,6 @@ function post(req, res, next) {
                             return;
                         }
 
-                        user.role = role;
-                        user.id =
                         payload = {
                             sub: user,
                             role: role
@@ -75,10 +75,8 @@ function post(req, res, next) {
 
                         var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: '24h'});
 
-                        //console.log(req.headers);
-
                         if(token){
-                          res.cookie('jwt', token)
+                          res.cookie('token', token)
                           res.json({
                             success: true,
                             message: 'Authentication successful!',
@@ -89,43 +87,6 @@ function post(req, res, next) {
                               message:"Not created"
                           });
                         }
-
-
-                        // console.log(token);
-                        // if(token){
-                        //     res.status(200).json({
-                        //       user: user,
-                        //       token: token
-                        //     });
-                        // }
-                        // else{
-                        //     res.status(403).json({
-                        //         message:"Not created"
-                        //     });
-                        // }
-                        //res.status(200).send('http://localhost:3000/api/get_token',{user: user,token: token});
-                        // axios.post('http://localhost:3000/api/get_token', {
-                        //   user: user,
-                        //   token: token
-                        // }).then(function (response) {
-                        //   console.log('RESPONSE --> ',response);
-                        // })
-                        // .catch(function (error) {
-                        //   console.log('ERROR --> ',error);
-                        // });
-                        // res.status(200).json({
-                        //     user: user,
-                        //     token: token
-                        // });
-
-                        // res.status(200).json({
-                        //     user: user,
-                        //     token: jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400})
-                        // });
-
-                         // res.render(__dirname + '../public/index.html');
-
-
                     });
 
                     connection.release(function(err) {
