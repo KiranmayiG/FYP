@@ -29,6 +29,7 @@ async function get(req, res, next) {
 
       user_view.parent_fname = parent_details.parent_fname;
       user_view.parent_lname = parent_details.parent_lname;
+      user_view.parent_username = parent_details.parent_username;
       user_view.parent_dob = parent_details.parent_dob;
       user_view.parent_phone = parent_details.parent_phone;
       //console.log('user_view after parent contents ', user_view);
@@ -48,7 +49,7 @@ async function get(req, res, next) {
 
       //console.log(user_view);
 
-      res.json({user_view_details: user_view});
+      res.json({user: user_view});
     }
 
 }
@@ -57,7 +58,7 @@ module.exports.get = get;
 
 async function get_parent_details(user_view){
   var query_parent = '';
-  query_parent = 'select FNAME as "parent_fname", LNAME as "parent_lname", '+
+  query_parent = 'select FNAME as "parent_fname", LNAME as "parent_lname", USERNAME as "parent_username", '+
   'DOB as "parent_dob", PHONE_NO as "parent_phone" from PARENT where PARENT_ID = :parent_id';
 
   let connection;
