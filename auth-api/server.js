@@ -14,15 +14,61 @@ var app;
 var router;
 var port = 3000;
 var path= require('path');
-
+var csrf = require( 'csurf' ) ;
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
 
 app = express();
 
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
 
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//security aspect
+app.disable( 'x-powered-by' ) ;
+
+app.use( csrf() ) ;
+
+app.use( function( req, res, next ) {
+  res.locals.csrftoken = req.csrfToken() ;
+  next() ;
+} ) ;
+
+app.use( function( req, res, next ) {
+  res.header( 'Strict-Transport-Security', 7776000000 ) ;
+  res.header( 'X-Frame-Options', 'SAMEORIGIN' ) ;
+  res.header( 'X-XSS-Protection', 0 ) ;
+  res.header( 'X-Content-Type-Options', 'nosniff' ) ;
+  next() ;
+} ) ;
+
+
+var hpp = require( 'hpp' ) ;
+app.use( bodyparser.urlencoded() ) ;
+app.use( hpp() ) ;
+
+var helmet = require('helmet')
+app.use(helmet());
+
+
+const rateLimit = require("express-rate-limit");
+
+app.enable("trust proxy"); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100
+});
+
+// only apply to requests that begin with /api/
+app.use("/api/", apiLimiter);
+
+//security aspect ends
+
+
 
 router = express.Router();
 router.post('/users', users.post);

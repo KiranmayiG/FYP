@@ -2,8 +2,14 @@ var oracledb = require('oracledb');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
+
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 const cookieParser = require('cookie-parser');
 
+
+const axios = require('axios')
 
 
 
@@ -38,7 +44,7 @@ function post(req, res, next) {
             connection.execute(
                 query,
                 {
-                    username: req.body.username
+                    username: esapiEncoder.encodeforHTML(req.body.username)
                 },
                 {
                     outFormat: oracledb.OBJECT
