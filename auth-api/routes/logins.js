@@ -2,15 +2,15 @@ var oracledb = require('oracledb');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
+
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 const cookieParser = require('cookie-parser');
 
 
-<<<<<<< HEAD
-<%@page import="org.owasp.encoder.Encode" %>
-
 const axios = require('axios')
-=======
->>>>>>> 707791c5a02b483e1420d84e9193be8c9be49e0d
+
 
 
 function post(req, res, next) {
@@ -44,7 +44,7 @@ function post(req, res, next) {
             connection.execute(
                 query,
                 {
-                    username: ESAPI.encodeforHTML(req.body.username)
+                    username: esapiEncoder.encodeforHTML(req.body.username)
                 },
                 {
                     outFormat: oracledb.OBJECT
