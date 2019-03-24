@@ -9,12 +9,12 @@ var esapiEncoder= esapi.encoder();
 const cookieParser = require('cookie-parser');
 
 
-const axios = require('axios')
-
-
-
 function post(req, res, next) {
     var role = req.body.role;
+    // var input_username = req.body.username;
+    // var encoded_username = esapiEncoder.encodeForHTML(input_username);
+    // console.log("encoded ", encoded_username);
+
     var query = '';
 
     if(role == "FACULTY"){
@@ -44,7 +44,7 @@ function post(req, res, next) {
             connection.execute(
                 query,
                 {
-                    username: esapiEncoder.encodeforHTML(req.body.username)
+                    username: req.body.username
                 },
                 {
                     outFormat: oracledb.OBJECT

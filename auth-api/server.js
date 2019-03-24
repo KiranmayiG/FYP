@@ -30,13 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //security aspect
 app.disable( 'x-powered-by' ) ;
 
-app.use( csrf() ) ;
-
-app.use( function( req, res, next ) {
-  res.locals.csrftoken = req.csrfToken() ;
-  next() ;
-} ) ;
-
 app.use( function( req, res, next ) {
   res.header( 'Strict-Transport-Security', 7776000000 ) ;
   res.header( 'X-Frame-Options', 'SAMEORIGIN' ) ;
@@ -47,7 +40,7 @@ app.use( function( req, res, next ) {
 
 
 var hpp = require( 'hpp' ) ;
-app.use( bodyparser.urlencoded() ) ;
+app.use( bodyParser.urlencoded() ) ;
 app.use( hpp() ) ;
 
 var helmet = require('helmet')
@@ -99,73 +92,9 @@ router.get('/logout', function(req, res) {
 //app.get('/get_user', check_token.checkToken, logins.get);
 
 
-// router.get('/get_token', function(req, res) {
-//   //console.log('REQUEST PRINT --> ', req.body.token);
-//   console.log(req.body.);
-//   console.log(req.headers.authorization);
-//
-//   var token = req.headers['x-access-token'] || req.headers['authorization'];
-//   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
-//
-//   jwt.verify(token, config.secret, function(err, decoded) {
-//     if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-//
-//     res.status(200).send(decoded);
-//   });
-// });
-
-// router.use((req, res, next)=>{
-//         // check header or url parameters or post parameters for token
-//         var token = req.body.token || req.query.token || req.headers['x-access-token'];
-//         console.log('Token ', token);
-//         if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
-//
-//           jwt.verify(token, config.secret, function(err, decoded) {
-//             if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-//
-//             res.status(200).send(decoded);
-//              });
-//         // if(token){
-//         //   //Decode the token
-//         //   jwt.verify(token, config.secret,(err,decod)=>{
-//         //     if(err){
-//         //       res.status(403).json({
-//         //         message:"Wrong Token"
-//         //       });
-//         //     }
-//         //     else{
-//         //       //If decoded then call next() so that respective route is called.
-//         //       req.decoded=decod;
-//         //       next();
-//         //     }
-//         //   });
-//         // }
-//
-// });
-
-// app.post('/getusers',(req,res)=>{
-//     var user_list=[];
-//     users.forEach((user)=>{
-//         user_list.push({"name":user.name});
-//     })
-//     res.send(JSON.stringify({users:user_list}));
-// });
-
-
-
-
 app.use('/api', router);
 
-// app.get('/get_user', function(res, req){
-//     console.log(req.user);
-//     if(req.user)
-//        res.render('/index', {user: req.user.username});
-//     else res.redirect('api/logins');
-// });
-//
-// router.get('/logins', function(req, res) {
-//     res.render('api/logins');
-// });
+
 app.get('/index', function (req, res) {
 res.sendFile(path.join(__dirname + '/public/index.html'));
 });
@@ -177,6 +106,12 @@ res.sendFile(path.join(__dirname + '/public/contact.html'));
 app.get('/blog', function (req, res) {
 res.sendFile(path.join(__dirname + '/public/blog.html'));
 });
+
+app.use( csrf() ) ;
+app.use( function( req, res, next ) {
+  res.locals.csrftoken = req.csrfToken() ;
+  next() ;
+} ) ;
 
 app.listen(port, function() {
     console.log('Web server listening on localhost:' + port);
