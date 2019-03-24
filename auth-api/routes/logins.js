@@ -23,7 +23,9 @@ function post(req, res, next) {
       'DOB as "dob", PHONE_NO as "phone" from PARENT where username = :username';
     }
     else if(role == "ADMIN"){
-      //add later
+      query = 'select ADMIN_ID as "admin_id", USERNAME as "username", '+
+      'PASSWORD as "password", FNAME as "fname", LNAME as "lname" '+
+      'from ADMIN where username = :username';
     }
 
     oracledb.getConnection(
