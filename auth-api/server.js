@@ -14,7 +14,10 @@ var app;
 var router;
 var port = 3000;
 var path= require('path');
+
+
 app = express();
+
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
 
