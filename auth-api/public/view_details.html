@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Registration</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+  <!-- Font Awesome Icon -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- Custom stlylesheet -->
+  <link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+  </head>
+
+  <body>
+  <script  type="text/javascript">
+  		function getDetails() {
+
+        var example='{ "STUDENT_ID": 100, "FNAME": "Kamakshi", "LNAME": "Jha", "USERNAME": "kj",  "PHONE": 98989898, "SEMESTER":8, "DOB": "01/03/1997", "DATE OF JOIN":"01/01/2001"}';
+
+        //console.log(obj.STUDENT_ID + "  " + obj.FNAME);
+        var obj = JSON.parse(example);
+        document.getElementById("name").innerHTML = obj.FNAME + "  " + obj.LNAME
+        document.getElementById("username").innerHTML = obj.USERNAME
+        document.getElementById("phone").innerHTML = obj.PHONE
+        document.getElementById("dob").innerHTML = obj.DOB
+
+
+      };
+    </script>
+
+    <div class="container">
+
+      <!-- Navigation -->
+      <nav id="nav">
+        <ul class="main-menu nav navbar-nav navbar-right">
+          <li id="details"><a data-toggle='modal' data-target='#myModal' onclick="getDetails()">Details</a></li>
+        </ul>
+      </nav>
+      <div class="container">
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Details</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+              <!-- <form role="form" action="http://localhost:3000/login" method="post"> -->
+                <div class="form-group">
+                  <label for="name"><span class="glyphicon glyphicon-user"></span>Full Name</label>
+                  <t><b><p id="name" >
+                </div>
+                <div class="form-group">
+                  <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
+                  <t><b><p id="username" >
+                </div>
+                <div class="form-group">
+                  <label for="password"><span class="glyphicon glyphicon-eye-open"></span>Date of Birth</label>
+                  <p id="dob">
+                </div>
+                <div class="form-group">
+                  <label for="phone"><span class="glyphicon glyphicon-eye-open"></span> Mobile Number</label>
+                  <p id="phone">
+                </div>
+
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
