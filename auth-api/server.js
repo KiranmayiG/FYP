@@ -12,43 +12,11 @@ var app;
 var router;
 var port = 3000;
 var path= require('path');
-<<<<<<< HEAD
-var oracledb = require('oracledb');
-var config = require(__dirname + '/config.js');
-var sess;
-app = express();
-||||||| merged common ancestors
-var oracledb = require('oracledb');
-var config = require(__dirname + '/config.js');
-var sess;
-app = express();
-
-=======
 
 app = express();
->>>>>>> 01d8cddfcb84869a470a545c438109844b4f9031
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
-<<<<<<< HEAD
-app.use(session({secret: 'ssshhhhh'}));
-// router = express.Router();
-// router.get('/public_things', publicThings.get);
-// router.get('/protected_things', protectedThings.get);
-// router.post('/users', users.post);
-// app.use('/api', router);
 
-||||||| merged common ancestors
-
-
-app.use(session({secret: 'ssshhhhh'}));
-// router = express.Router();
-// router.get('/public_things', publicThings.get);
-// router.get('/protected_things', protectedThings.get);
-// router.post('/users', users.post);
-// app.use('/api', router);
-
-=======
->>>>>>> 01d8cddfcb84869a470a545c438109844b4f9031
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
