@@ -418,26 +418,32 @@ $(function(){
 									return false;
 									});
 
+
 								});
 		function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // pre-submit callback
 		function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); } // post-submit callback
 
+
 		let url="/api/get_user";
 				fetch(url).then(response => response.json())
 				.then( (result) => {
-						console.log('success:', result)
+						console.log('success:', result);
 						let login = document.getElementById('login');
 						let logout = document.getElementById('logout');
 						let upload_li = document.getElementById('upload_li');
-						let add_li =document.getElementById('add_li');
+						let add_li = document.getElementById('add_li');
 						let update_li =document.getElementById('update_li');
+
+						let welcome_user = document.getElementById('welcome_user');
+						welcome_user.innerHTML = `Welcome ${result.user.fname}!`;
 
 						login.style.display = 'none';
 						logout.style.display = 'block';
-						if(${result.user.role} == "FACULTY"){
+						let role = `${result.user.role}`;
+						if(role == "FACULTY"){
 							upload_li.style.display = 'block';
 						}
-						if(${result.user.role} == "ADMIN"){
+						if(role == "ADMIN"){
 							update_li.style.display = 'block';
 							add_li.style.display = 'block';
 						}
@@ -457,7 +463,6 @@ $(function(){
 					add_li.style.display = 'none';
 					console.log('error:', error);
 				});
-
 
 function f(){
 	console.log("Entered f");
