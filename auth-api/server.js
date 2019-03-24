@@ -14,6 +14,7 @@ var app;
 var router;
 var port = 3000;
 var path= require('path');
+var csrf = require( 'csurf' ) ;
 
 
 app = express();
@@ -21,8 +22,19 @@ app = express();
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
 
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//security aspect
+app.disable( 'x-powered-by' ) ;
+app.use( csrf() ) ;
+app.use( function( req, res, next ) {
+  res.locals.csrftoken = req.csrfToken() ;
+  next() ;
+} ) ;
+
+
 
 router = express.Router();
 router.post('/users', users.post);

@@ -17,37 +17,30 @@
         <div class="modal-body" style="padding:40px 50px;">
 
           <form role="form" action="http://localhost:3000/api/logins" method="post">
+
+            <!-- csrf security -->
+                        <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
+
 					<!-- <form role="form">  add onsubmit if required-->
             <div class="form-group">
 
-<<<<<<< HEAD
-              <label for="name"><span class="glyphicon glyphicon-user"></span> Event Name</label>
-              <input type="text" required class="form-control" name="name" id="name" placeholder="Enter Event Name">
-=======
+
               <label for="name">Event Name</label>
-              <input type="text" class="form-control" name="name" id="name" placeholder="Enter Event Name">
->>>>>>> 707791c5a02b483e1420d84e9193be8c9be49e0d
+              <input type="text" required class="form-control" name="name" id="name" placeholder="Enter Event Name">
+
 
             </div>
 
             <div class="form-group">
-<<<<<<< HEAD
-              <label for="date"><span class="glyphicon glyphicon-eye-open"></span> Event Date</label>
-              <input type="date" required class="form-control" name = "date" id="Edate" placeholder="Enter Date">
-            </div>
 
-            <div class="form-group">
-              <label for="description"><span class="glyphicon glyphicon-eye-open"></span> Description</label>
-              <input type="text" required class="form-control" name = "description" id="description" placeholder="Write Description here">
-=======
               <label for="date">Event Date</label>
-              <input type="date" class="form-control" name = "date" id="date" placeholder="Enter Date">
+              <input type="date" required  class="form-control" name = "date" id="date" placeholder="Enter Date">
             </div>
 
             <div class="form-group">
               <label for="description">Description</label>
               <input type="text" class="form-control" name = "description" id="description" placeholder="Write Description here">
->>>>>>> 707791c5a02b483e1420d84e9193be8c9be49e0d
+
             </div>
 
             <button type="submit" class="btn btn-success btn-block main-button">Add</button>

@@ -18,15 +18,13 @@
 
           <form role="form" action="http://localhost:3000/api/logins" method="post">
 
+            <!-- csrf security -->
+                        <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
             <div class="form-group">
 
-<<<<<<< HEAD
-              <label for="name"><span class="glyphicon glyphicon-user"></span> Couse Name</label>
-              <input type="text" required class="form-control" name="name" id="name" placeholder="Enter Couse Name">
-=======
               <label for="name">Couse Name</label>
-              <input type="text" class="form-control" name="name" id="name" placeholder="Enter Couse Name">
->>>>>>> 707791c5a02b483e1420d84e9193be8c9be49e0d
+              <input type="text" required  class="form-control" name="name" id="name" placeholder="Enter Couse Name">
+
 
             </div>
 

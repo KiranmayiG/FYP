@@ -15,6 +15,9 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form id='frmLogin' role="form" action="/api/logins" method="post">
+
+<!-- csrf security -->
+            <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
 					<!-- <form role="form">  add onsubmit if required-->
             <div class="form-group">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>

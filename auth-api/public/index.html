@@ -417,30 +417,66 @@ $(function(){
 
 });
 </script>
+
 <script>
-		$(document).ready(function() {
-								var options = {
-<<<<<<< HEAD
-												beforeSubmit: showRequest, // pre-submit callback success: showResponse // post-submit callback }; // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); }); // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
+$(document).ready(function() {
+						var options = {
+										beforeSubmit: showRequest, // pre-submit callback
+										success: showResponse // post-submit callback
+									}; // bind to the form's submit event
+						$('#frmUploader').submit(function () {
+							$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
+							return false;
+							});
+
+
+						});
+function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // pre-submit callback
+function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); } // post-submit callback
+
+
+let url="/api/get_user";
+		fetch(url).then(response => response.json())
+		.then( (result) => {
+				console.log('success:', result);
+				let login = document.getElementById('login');
+				let logout = document.getElementById('logout');
+				let upload_li = document.getElementById('upload_li');
+				let add_li = document.getElementById('add_li');
+				let update_li =document.getElementById('update_li');
+
+				let welcome_user = document.getElementById('welcome_user');
+				welcome_user.innerHTML = `Welcome ${result.user.fname}!`;
+
+				login.style.display = 'none';
+				logout.style.display = 'block';
+				let role = `${result.user.role}`;
+				if(role == "FACULTY"){
+					upload_li.style.display = 'block';
+				}
+				if(role == "ADMIN"){
+					update_li.style.display = 'block';
+					add_li.style.display = 'block';
+				}
+
+			//	div.innerHTML=`name: ${result.user.fname}<br/>username: ${result.user.username}`;
+		})
+		.catch(error => {
+			let login = document.getElementById('login');
+			let logout = document.getElementById('logout');
+			let upload_li = document.getElementById('upload_li');
+			let add_li =document.getElementById('add_li');
+			let update_li =document.getElementById('update_li');
+			login.style.display = 'block';
+			logout.style.display = 'none';
+			upload_li.style.display = 'none';
+			update_li.style.display = 'none';
+			add_li.style.display = 'none';
+			console.log('error:', error);
+		});
 </script>
 
-// auth= function(){
-//             var xhttp = new XMLHttpRequest();
-//             //data={name:document.getElementById("username").value,password:document.getElementById("password").value}
-//             xhttp.onreadystatechange = function() {
-//                 if (xhttp.readyState==4 && xhttp.status==200) {
-//                     var response = JSON.parse(xhttp.responseText);
-// 										console.log('TOKEN --> ', response.token);
-//                     document.getElementById("token-display").innerHTML = response.token;
-//                 }
-//                 if(xhttp.readyState==4 && xhttp.status==403){
-//                   document.getElementById("token-display").innerHTML=JSON.parse(xhttp.responseText).message;
-//                 }
-//             };
-//             xhttp.open("POST", "http://localhost:3000/api/logins", true);
-//             xhttp.setRequestHeader("Content-type", 'application/json; charset=UTF-8');
-//             //xhttp.send(JSON.stringify(data));
-//         }
+
 <script>
 
 var now = new Date(),
@@ -449,59 +485,6 @@ var now = new Date(),
 $('#Edate').prop('min', minDate);
 
 </script>
-
-<script>
-org.owasp.esapi.ESAPI.initialize();
-</script>
-=======
-												beforeSubmit: showRequest, // pre-submit callback
-												success: showResponse // post-submit callback
-											}; // bind to the form's submit event
-								$('#frmUploader').submit(function () {
-									$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
-									return false;
-									});
-
-								});
-		function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // pre-submit callback
-		function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); } // post-submit callback
-
-		let url="/api/get_user";
-				fetch(url).then(response => response.json())
-				.then( (result) => {
-						console.log('success:', result)
-						let login = document.getElementById('login');
-						let logout = document.getElementById('logout');
-						let upload_li = document.getElementById('upload_li');
-						let add_li =document.getElementById('add_li');
-						let update_li =document.getElementById('update_li');
-
-						login.style.display = 'none';
-						logout.style.display = 'block';
-						if(${result.user.role} == "FACULTY"){
-							upload_li.style.display = 'block';
-						}
-						if(${result.user.role} == "ADMIN"){
-							update_li.style.display = 'block';
-							add_li.style.display = 'block';
-						}
-
-					//	div.innerHTML=`name: ${result.user.fname}<br/>username: ${result.user.username}`;
-				})
-				.catch(error => {
-					let login = document.getElementById('login');
-					let logout = document.getElementById('logout');
-					let upload_li = document.getElementById('upload_li');
-					let add_li =document.getElementById('add_li');
-					let update_li =document.getElementById('update_li');
-					login.style.display = 'block';
-					logout.style.display = 'none';
-					upload_li.style.display = 'none';
-					update_li.style.display = 'none';
-					add_li.style.display = 'none';
-					console.log('error:', error);
-				});
->>>>>>> 707791c5a02b483e1420d84e9193be8c9be49e0d
 
 <script type="text/javascript" language="JavaScript">
 Base.esapi.properties.logging[’ApplicationLogger’] = {
@@ -538,5 +521,5 @@ function f(){
 
 </script>
 
-	</body>
+</body>
 </html>

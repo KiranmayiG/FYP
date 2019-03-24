@@ -43,6 +43,10 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form role="form" action="http://localhost:3000/login" method="post">
+
+            <!-- csrf security -->
+                        <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
+                        
             <div class="form-group">
               <label for="name"><span class="glyphicon glyphicon-user"></span> Name</label>
               <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
