@@ -1,7 +1,7 @@
 module.exports = {
     database: {
-        user: 'kamakshi',
-        password: 'kamakshi',
+        user: 'FYP',
+        password: 'qwertyui',
         connectString: 'localhost:1521/orcl'
     },
     student: {
