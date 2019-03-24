@@ -2,20 +2,30 @@ var oracledb = require('oracledb');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
+
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 const cookieParser = require('cookie-parser');
-
-
 
 
 function post(req, res, next) {
     var role = req.body.role;
+    // var input_username = req.body.username;
+    // var encoded_username = esapiEncoder.encodeForHTML(input_username);
+    // console.log("encoded ", encoded_username);
+
     var query = '';
 
     if(role == "FACULTY"){
       query = 'select USERNAME as "username", PASSWORD as "password" from FACULTY where username = :username';
     }
     else if(role == "STUDENT"){
-      query = 'select USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
+      query = 'select STUDENT_ID as "student_id", USERNAME as "username", '+
+      'PASSWORD as "password", FNAME as "fname", LNAME as "lname", '+
+      'DOB as "dob", PHONE as "phone", PARENT_ID as "parent_id", '+
+      'DATE_OF_JOIN as "doj", DEPARTMENT_ID as "department_id", '+
+      'SEMESTER as "semester" from STUDENT where username = :username';
     }
     else if(role == "PARENT"){
       query = 'select PARENT_ID as "parent_id", USERNAME as "username", '+
