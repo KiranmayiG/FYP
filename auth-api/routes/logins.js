@@ -21,7 +21,11 @@ function post(req, res, next) {
       query = 'select USERNAME as "username", PASSWORD as "password" from FACULTY where username = :username';
     }
     else if(role == "STUDENT"){
-      query = 'select USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
+      query = 'select STUDENT_ID as "student_id", USERNAME as "username", '+
+      'PASSWORD as "password", FNAME as "fname", LNAME as "lname", '+
+      'DOB as "dob", PHONE as "phone", PARENT_ID as "parent_id", '+
+      'DATE_OF_JOIN as "doj", DEPARTMENT_ID as "department_id", '+
+      'SEMESTER as "semester" from STUDENT where username = :username';
     }
     else if(role == "PARENT"){
       query = 'select PARENT_ID as "parent_id", USERNAME as "username", '+

@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var users = require(__dirname + '/routes/users.js');
 var logins = require(__dirname + '/routes/logins.js');
+var user_view_details = require(__dirname + '/routes/user_view_details.js');
 var uploads_assignment = require(__dirname + '/routes/uploads_assignment.js');
 var uploads_notes = require(__dirname + '/routes/uploads_notes.js');
 var uploads_videos = require(__dirname + '/routes/uploads_videos.js');
@@ -90,6 +91,8 @@ router.get('/logout', function(req, res) {
   res.redirect('/index');
 });
 //app.get('/get_user', check_token.checkToken, logins.get);
+
+router.get('/user_view_details', ...withAuthUserId, user_view_details.get);
 
 
 app.use('/api', router);
