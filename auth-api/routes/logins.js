@@ -3,6 +3,8 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
+<%@page import="org.owasp.encoder.Encode" %>
+
 const axios = require('axios')
 
 
@@ -33,7 +35,7 @@ function post(req, res, next) {
             connection.execute(
                 query,
                 {
-                    username: req.body.username
+                    username: ESAPI.encodeforHTML(req.body.username)
                 },
                 {
                     outFormat: oracledb.OBJECT

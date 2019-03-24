@@ -390,6 +390,16 @@ Days here overflow with opportunities to hone our skills, and with challenges th
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
+
+<!-- esapi4js dependencies -->
+<script type="text/javascript" language="JavaScript" src="/esapi4js/lib/log4js.js"></script>
+<!-- esapi4js core -->
+<script type="text/javascript" language="JavaScript" src="/esapi4js/esapi.js"></script>
+<!-- esapi4js i18n resources -->
+<script type="text/javascript" language="JavaScript" src="/esapi4js/resources/i18n/ESAPI_Standard_en_US.properties.js"></script>
+<!-- esapi4js configuration -->
+<script type="text/javascript" language="JavaScript" src="/esapi4js/resources/Base.esapi.properties.js"></script>
+
 <script>
 $(function(){
   $("#include_assignment_modal").load("upload_assignment_modal.html");
@@ -410,7 +420,7 @@ $(function(){
 								var options = {
 												beforeSubmit: showRequest, // pre-submit callback success: showResponse // post-submit callback }; // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); }); // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
 </script>
-<script>
+
 // auth= function(){
 //             var xhttp = new XMLHttpRequest();
 //             //data={name:document.getElementById("username").value,password:document.getElementById("password").value}
@@ -428,7 +438,39 @@ $(function(){
 //             xhttp.setRequestHeader("Content-type", 'application/json; charset=UTF-8');
 //             //xhttp.send(JSON.stringify(data));
 //         }
+<script>
 
+var now = new Date(),
+    minDate = now.toISOString().substring(0,10);
+
+$('#Edate').prop('min', minDate);
+
+</script>
+
+<script>
+org.owasp.esapi.ESAPI.initialize();
+</script>
+
+<script type="text/javascript" language="JavaScript">
+Base.esapi.properties.logging[’ApplicationLogger’] = {
+Level: org.owasp.esapi.Logger.ALL,
+Appenders: [ new Log4js.ConsoleAppender() ],
+LogUrl: true,
+LogApplicationName: true,
+EncodingRequired: true
+};
+
+Base.esapi.properties.application.Name = "My Application v1.0";
+org.owasp.esapi.ESAPI.initialize();
+ $ESAPI.logger(’ApplicationLogger’).info(org.owasp.esapi.Logger.EventType.
+EVENT_SUCCESS, ’This is a test message’);
+ document.writeln( $ESAPI.encoder().encodeForHTML( "<a href=\"http://owaspesapi-js.googlecode.com\">Check out esapi4js</a>" ) );
+ var validateCreditCard = function() {
+	return $ESAPI.validator().isValidCreditCard( $(’CreditCard’).value );
+}
+</script>
+
+<script>
 
 function f(){
 	console.log("Entered f");
