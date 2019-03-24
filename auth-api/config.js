@@ -1,6 +1,6 @@
 module.exports = {
     database: {
-        user: 'fyp',
+        user: 'FYP',
         password: 'qwertyui',
         connectString: 'localhost:1521/orcl'
     },

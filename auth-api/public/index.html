@@ -42,10 +42,11 @@
 					<li><a href="#">About</a></li>
 					<li><a href="#">Courses</a></li>
 					<li><a href="#">Department</a></li>
-					<li id="test"></li>
 					<li id="login"><a data-toggle='modal' data-target='#login_modal'>Login</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li class="dropdown">
+					<li id="logout" style="display:none"><a href='api/logout'>Logout</a></li>
+					<li><a href="contact.html">Contact Us</a></li>
+					<li><a href="view_details.html">View Details</a></li>
+					<li id='upload_li' style="display:none" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Upload
                   <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -56,7 +57,7 @@
           </li>
 <!-- //saloni's edit for adding from admin's end -->
 
-					<li class="dropdown">
+					<li id='add_li' style="display:none" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Add New
                   <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -68,7 +69,7 @@
 				<!-- Saloni's edit to add end
 				saloni's update couse, department edits -->
 
-				<li class="dropdown">
+				<li id='update_li' style="display:none" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown">Update existing
 								<span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -133,6 +134,7 @@
 					<h1 class="white-text">Eden School</h1>
 					<p class="lead white-text">We envision a better, brighter India to be realized in the minds and hearts of our students.
 					</p>
+					<p class="lead white-text" id='welcome_user'></p>
 				</div>
 			</div>
 		</div>
@@ -418,6 +420,7 @@ $(function(){
 <script>
 		$(document).ready(function() {
 								var options = {
+<<<<<<< HEAD
 												beforeSubmit: showRequest, // pre-submit callback success: showResponse // post-submit callback }; // bind to the form's submit event $('#frmUploader').submit(function () { $(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation return false; }); }); // pre-submit callback function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // post-submit callback function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); }
 </script>
 
@@ -450,6 +453,55 @@ $('#Edate').prop('min', minDate);
 <script>
 org.owasp.esapi.ESAPI.initialize();
 </script>
+=======
+												beforeSubmit: showRequest, // pre-submit callback
+												success: showResponse // post-submit callback
+											}; // bind to the form's submit event
+								$('#frmUploader').submit(function () {
+									$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
+									return false;
+									});
+
+								});
+		function showRequest(formData, jqForm, options) { alert('Uploading is starting.'); return true; } // pre-submit callback
+		function showResponse(responseText, statusText, xhr, $form) { alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); } // post-submit callback
+
+		let url="/api/get_user";
+				fetch(url).then(response => response.json())
+				.then( (result) => {
+						console.log('success:', result)
+						let login = document.getElementById('login');
+						let logout = document.getElementById('logout');
+						let upload_li = document.getElementById('upload_li');
+						let add_li =document.getElementById('add_li');
+						let update_li =document.getElementById('update_li');
+
+						login.style.display = 'none';
+						logout.style.display = 'block';
+						if(${result.user.role} == "FACULTY"){
+							upload_li.style.display = 'block';
+						}
+						if(${result.user.role} == "ADMIN"){
+							update_li.style.display = 'block';
+							add_li.style.display = 'block';
+						}
+
+					//	div.innerHTML=`name: ${result.user.fname}<br/>username: ${result.user.username}`;
+				})
+				.catch(error => {
+					let login = document.getElementById('login');
+					let logout = document.getElementById('logout');
+					let upload_li = document.getElementById('upload_li');
+					let add_li =document.getElementById('add_li');
+					let update_li =document.getElementById('update_li');
+					login.style.display = 'block';
+					logout.style.display = 'none';
+					upload_li.style.display = 'none';
+					update_li.style.display = 'none';
+					add_li.style.display = 'none';
+					console.log('error:', error);
+				});
+>>>>>>> 707791c5a02b483e1420d84e9193be8c9be49e0d
 
 <script type="text/javascript" language="JavaScript">
 Base.esapi.properties.logging[’ApplicationLogger’] = {
@@ -474,7 +526,7 @@ EVENT_SUCCESS, ’This is a test message’);
 
 function f(){
 	console.log("Entered f");
-	let url="http://localhost:3000/api/get_token";
+	let url="/api/get_token";
       fetch(url).then(response => response.json())
       .then( (result) => {
           console.log('success:', result)

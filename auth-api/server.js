@@ -7,15 +7,20 @@ var logins = require(__dirname + '/routes/logins.js');
 var uploads_assignment = require(__dirname + '/routes/uploads_assignment.js');
 var uploads_notes = require(__dirname + '/routes/uploads_notes.js');
 var uploads_videos = require(__dirname + '/routes/uploads_videos.js');
+var check_token = require('./check_token.js');
+var jwt = require('jsonwebtoken');
+var config = require(__dirname + '/config.js');
 var app;
 var router;
 var port = 3000;
 var path= require('path');
-var multer = require('multer');
+
 
 app = express();
+
 app.use(morgan('combined')); //logger
 app.use(bodyParser.json());
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -26,6 +31,26 @@ router.post('/logins', logins.post);
 router.post('/upload_assignment', uploads_assignment.post);
 router.post('/upload_notes', uploads_notes.post);
 router.post('/upload_videos', uploads_videos.post);
+
+const withAuthUserId = [
+  cookieParser(),
+  (req, res, next) => {
+    const claims = jwt.verify(req.cookies['token'], config.jwtSecretKey)
+    req['authUserId'] = claims['sub']
+    next()
+  }
+];
+
+router.get('/get_user', ...withAuthUserId, (req, res) => {
+  console.log(req['authUserId']);
+  res.json({user: req['authUserId']});
+});
+
+router.get('/logout', function(req, res) {
+  res.clearCookie("token");
+  res.redirect('/index');
+});
+//app.get('/get_user', check_token.checkToken, logins.get);
 
 
 // router.get('/get_token', function(req, res) {
