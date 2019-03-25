@@ -424,10 +424,15 @@ $(document).ready(function() {
 										beforeSubmit: showRequest, // pre-submit callback
 										success: showResponse // post-submit callback
 									}; // bind to the form's submit event
-						$('#frmUploader').submit(function () {
+						$('#assignmentFrmUploader').submit(function () {
 							$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
 							return false;
 							});
+
+							$('#frmUploader').submit(function () {
+								$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
+								return false;
+								});
 
 
 						});

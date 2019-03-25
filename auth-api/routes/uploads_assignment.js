@@ -8,15 +8,19 @@ async function post(req, res, next) {
     var user = req['authUserId'];
     var faculty_id = user.faculty_id;
 
+    let file_name;
     try{
-      let file_name = await store_the_file();
+      file_name = await store_file(req, res);
     } catch (err){
       console.error(err);
     }
 
-    console.log('filename ', file_name);
-    var course_name = req.body.course_name;
-    console.log('course_name ', course_name);
+    let course_name;
+    try{
+      course_name = await get_course_name(req);
+    } catch (err){
+      console.error(err);
+    }
 
      try{
        let query = 'select COURSE_ID as "course_id" '+
@@ -34,12 +38,13 @@ async function post(req, res, next) {
        console.error(err);
      }
      console.log('Done!');
+     //res.redirect('/index');
 }
 
 module.exports.post = post;
 
-async function store_the_file(){
-  let file_name;
+async function store_file(req, res){
+  var file_name;
   var StorageAssignment = multer.diskStorage({
       destination: function(req, file, callback) {
           callback(null, "./public/assignments");
@@ -57,13 +62,19 @@ async function store_the_file(){
 
    upload_assignment(req, res, function(err) {
        if (err) {
-           return "Something went wrong!";
+           return res.json({result: "Something went wrong!"});
        }
-          return file_name;
-          //return res.end("Assignment uploaded sucessfully!.");
+       console.log('filename ', file_name);
+       return file_name;
    });
-
 }
+
+async function get_course_name(req){
+  var course_name = req.body.course_name;
+  console.log('course_name ', course_name);
+  return course_name;
+}
+
 
 async function get_course_id(course_name, query){
   let connection;
