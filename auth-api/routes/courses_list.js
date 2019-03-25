@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 
 
 async function get(req, res, next) {
-    console.log('entered courses get');
     var user = req['authUserId'];
     let query;
     let courses;
@@ -36,7 +35,7 @@ async function get(req, res, next) {
       } catch (err){
         console.error(err);
       }
-      console.log(courses);
+      //console.log(courses);
       res.json({courses: courses});
     }
 }
@@ -60,7 +59,7 @@ async function get_student_courses(user, query){
       },
     );
     //console.log(result.rows);
-    let courses = result.rows[0];
+    let courses = result.rows;
     return courses;
 
   } catch (err) {
@@ -93,7 +92,7 @@ async function get_faculty_courses(user, query){
       },
     );
     //console.log(result.rows);
-    let courses = result.rows[0];
+    let courses = result.rows;
     return courses;
 
   } catch (err) {

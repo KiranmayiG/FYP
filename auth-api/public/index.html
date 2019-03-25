@@ -479,6 +479,26 @@ let url="/api/get_user";
 			add_li.style.display = 'none';
 			console.log('error:', error);
 		});
+
+		let url_1="/api/get_courses_list";
+				fetch(url_1).then(response => response.json())
+				.then( (result) => {
+						console.log('success:', result);
+						let course_list = document.getElementById('course_list');
+
+						var i;
+						let text;
+						for (i = 0; i < result.courses.length; i++) {
+						  text += `<option value="${result.courses[i].course_name}"> `;
+							text += `\n`;
+						}
+						course_list.innerHTML = text;
+				})
+				.catch(error => {
+					console.log('error:', error);
+				});
+
+
 </script>
 
 

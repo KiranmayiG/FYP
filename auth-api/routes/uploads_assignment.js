@@ -4,143 +4,129 @@ var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 var multer = require('multer');
 
-function post(req, res, next) {
-    var StorageAssignment = multer.diskStorage({
-        destination: function(req, file, callback) {
-            callback(null, "./public/assignments");
-        },
-        filename: function(req, file, callback) {
-            //callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-            callback(null, file.originalname);
-        }
-    });
+async function post(req, res, next) {
+    var user = req['authUserId'];
+    var faculty_id = user.faculty_id;
 
-    var upload_assignment = multer({
-         storage: StorageAssignment
-     }).array("assignmentFileUploader", 3); //Field name and max count
+    try{
+      let file_name = await store_the_file();
+    } catch (err){
+      console.error(err);
+    }
 
-    upload_assignment(req, res, function(err) {
-        if (err) {
-            return res.end("Something went wrong!");
-        }
-        return res.end("Assignment uploaded sucessfully!.");
-    });
+    console.log('filename ', file_name);
+    var course_name = req.body.course_name;
+    console.log('course_name ', course_name);
 
-     var name = req.body.name;
-     var course = req.body.course;
-    // var query = '';
-    //
-    // if(role == "FACULTY"){
-    //   query = 'select USERNAME as "username", PASSWORD as "password" from FACULTY where username = :username';
-    // }
-    // else if(role == "STUDENT"){
-    //   query = 'select USERNAME as "username", PASSWORD as "password" from STUDENT where username = :username';
-    // }
-    // else if(role == "PARENT"){
-    //   query = 'select USERNAME as "username", PASSWORD as "password" from PARENT where username = :username';
-    // }
-    // else if(role == "ADMIN"){
-    //   //add later
-    // }
-    //
-    // oracledb.getConnection(
-    //     config.database,
-    //     function(err, connection){
-    //         if (err) {
-    //             return next(err);
-    //         }
-    //
-    //         connection.execute(
-    //             query,
-    //             {
-    //                 username: req.body.username
-    //             },
-    //             {
-    //                 outFormat: oracledb.OBJECT
-    //             },
-    //             function(err, results){
-    //                 var user;
-    //
-    //                 if (err) {
-    //                     connection.release(function(err) {
-    //                         if (err) {
-    //                             console.error(err.message);
-    //                         }
-    //                     });
-    //
-    //                     return next(err);
-    //                 }
-    //
-    //                 user = results.rows[0];
-    //
-    //                 bcrypt.compare(req.body.password, user.password, function(err, pwMatch) {
-    //                     var payload;
-    //
-    //                     if (err) {
-    //                         return next(err);
-    //                     }
-    //
-    //                     if (!pwMatch) {
-    //                         res.status(401).send({message: 'Invalid email or password.'});
-    //                         return;
-    //                     }
-    //
-    //                     payload = {
-    //                         sub: user.username,
-    //                         role: role
-    //                     };
-    //
-    //                     var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400});
-    //
-    //
-    //                     console.log(token);
-    //                         if(token){
-    //                         res.status(200).json({
-    //                           user: user,
-    //                           token: token
-    //                         });
-    //                     }
-    //                     else{
-    //                         res.status(403).json({
-    //                             message:"Not created"
-    //                         });
-    //                     }
-    //                     //res.status(200).send('http://localhost:3000/api/get_token',{user: user,token: token});
-    //                     // axios.post('http://localhost:3000/api/get_token', {
-    //                     //   user: user,
-    //                     //   token: token
-    //                     // }).then(function (response) {
-    //                     //   console.log('RESPONSE --> ',response);
-    //                     // })
-    //                     // .catch(function (error) {
-    //                     //   console.log('ERROR --> ',error);
-    //                     // });
-    //                     // res.status(200).json({
-    //                     //     user: user,
-    //                     //     token: token
-    //                     // });
-    //
-    //                     // res.status(200).json({
-    //                     //     user: user,
-    //                     //     token: jwt.sign(payload, config.jwtSecretKey, {expiresIn: 86400})
-    //                     // });
-    //
-    //                      // res.render(__dirname + '../public/index.html');
-    //                     // res.redirect('/get_user');
-    //
-    //                 });
-    //
-    //                 connection.release(function(err) {
-    //                     if (err) {
-    //                         console.error(err.message);
-    //                     }
-    //                 });
-    //             });
-    //     }
-    // );
+     try{
+       let query = 'select COURSE_ID as "course_id" '+
+                  'from COURSE where COURSE_NAME = :course_name';
+       let course_id = await get_course_id(course_name, query);
+     } catch (err){
+       console.error(err);
+     }
 
-
-
+     try{
+       let insert_query = 'insert into ASSIGNMENT (NAME, FACULTY_ID, COURSE_ID) '+
+       'values (:filename, :faculty_id, :course_id)';
+       let result_insert = await insert_assignment(file_name, faculty_id, course_id, insert_query);
+     } catch (err){
+       console.error(err);
+     }
+     console.log('Done!');
 }
 
 module.exports.post = post;
+
+async function store_the_file(){
+  let file_name;
+  var StorageAssignment = multer.diskStorage({
+      destination: function(req, file, callback) {
+          callback(null, "./public/assignments");
+      },
+      filename: function(req, file, callback) {
+          //callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+          file_name = file.originalname;
+          callback(null, file.originalname);
+      }
+  });
+
+  var upload_assignment = multer({
+       storage: StorageAssignment
+   }).array("assignmentFileUploader", 3); //Field name and max count
+
+   upload_assignment(req, res, function(err) {
+       if (err) {
+           return "Something went wrong!";
+       }
+          return file_name;
+          //return res.end("Assignment uploaded sucessfully!.");
+   });
+
+}
+
+async function get_course_id(course_name, query){
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(config.database);
+
+    let result = await connection.execute(
+      query,
+      {
+          course_name: course_name
+      },
+      {
+          outFormat: oracledb.OBJECT
+      },
+    );
+    console.log('course_id ', result.rows);
+    let course_id = result.rows[0];
+    return course_id;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}
+
+async function insert_assignment(filename, faculty_id, course_id, insert_query){
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(config.database);
+
+    let result = await connection.execute(
+      insert_query,
+      {
+          filename: filename,
+          faculty_id: faculty_id,
+          course_id: course_id
+      },
+      {
+          outFormat: oracledb.OBJECT
+      },
+    );
+    console.log(result);
+    // let course_id = result.rows[0];
+    // return course_id;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}

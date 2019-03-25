@@ -69,10 +69,6 @@ router = express.Router();
 router.post('/users', users.post);
 router.post('/logins', logins.post);
 
-router.post('/upload_assignment', uploads_assignment.post);
-router.post('/upload_notes', uploads_notes.post);
-router.post('/upload_videos', uploads_videos.post);
-
 const withAuthUserId = [
   cookieParser(),
   (req, res, next) => {
@@ -95,7 +91,11 @@ router.get('/logout', function(req, res) {
 
 router.get('/user_view_details', ...withAuthUserId, user_view_details.get);
 
-router.get('/get_courses_list', ...withAuthUserId, courses_list.get)
+router.get('/get_courses_list', ...withAuthUserId, courses_list.get);
+
+router.post('/upload_assignment', ...withAuthUserId, uploads_assignment.post);
+router.post('/upload_notes', ...withAuthUserId, uploads_notes.post);
+router.post('/upload_videos', ...withAuthUserId, uploads_videos.post);
 
 
 app.use('/api', router);

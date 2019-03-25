@@ -21,9 +21,9 @@ function post(req, res, next) {
 
    upload_videos(req, res, function(err) {
        if (err) {
-           return res.end("Something went wrong!");
+           return res.json({result: "Something went wrong!"});
        }
-       return res.end("Video uploaded sucessfully!.");
+       return res.json({result: "Video uploaded sucessfully!."});
    });
 
     //var name = req.body.name;

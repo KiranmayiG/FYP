@@ -19,25 +19,24 @@
 
 				<!-- csrf security -->
 				            <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
-										
-				<div class="form-group">
+
+				<!-- <div class="form-group">
 					<label for="assignment_name">Name</label>
-					<input type="text" class="form-control" name="assignment_name" id="assignment_name" placeholder="Enter Assignment Name">
-				</div>
+					<input type="text" required class="form-control" name="assignment_name" id="assignment_name" placeholder="Enter Assignment Name">
+				</div> -->
 				<div class="form-group">
-					<label for="course">Course</label>
-					<input type="text" list='course_list' placeholder="Select Course" name="course" id="course" class="form-control">
+					<label for="course_name">Course</label>
+					<input type="text" required list='course_list' placeholder="Select Course" name="course_name" id="course_name" class="form-control">
 						<datalist id="course_list">
-							<option value="A">
-							<option value="B">
-							<option value="C">
-							<option value="D">
+							<!-- <option value="A">
+							<option value="B"> -->
 						</datalist>
 				</div>
+				<br>
 				<div class="form-group">
 					<input type="file" name="assignmentFileUploader" multiple />
 				</div>
-
+				<br>
 					<button type="submit" class="btn btn-success btn-block main-button">Upload</button>
 			</form>
 		</div>
