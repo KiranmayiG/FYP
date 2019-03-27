@@ -503,7 +503,41 @@ let url="/api/get_user";
 					console.log('error:', error);
 				});
 
+			let url_2="/api/get_faculty_list";
+					fetch(url_2).then(response => response.json())
+					.then( (result) => {
+							console.log('success:', result);
+							let faculty_list = document.getElementById('faculty_list');
 
+							var i;
+							let text;
+							for (i = 0; i < result.faculty_list.length; i++) {
+							  text += `<option value="${result.faculty_list[i].fname} ${result.faculty_list[i].lname}"> `;
+								text += `\n`;
+							}
+							faculty_list.innerHTML = text;
+					})
+					.catch(error => {
+						console.log('error:', error);
+					});
+
+				let url_3="/api/get_department_list";
+						fetch(url_3).then(response => response.json())
+						.then( (result) => {
+								console.log('success:', result);
+								let department_list = document.getElementById('department_list');
+
+								var i;
+								let text;
+								for (i = 0; i < result.department_list.length; i++) {
+								  text += `<option value="${result.department_list[i].department_name}"> `;
+									text += `\n`;
+								}
+								department_list.innerHTML = text;
+						})
+						.catch(error => {
+							console.log('error:', error);
+						});
 </script>
 
 

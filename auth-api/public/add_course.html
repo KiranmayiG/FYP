@@ -16,7 +16,7 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
 
-          <form role="form" action="http://localhost:3000/api/logins" method="post">
+          <form role="form" action="/api/insert_course" method="post">
 
             <!-- csrf security -->
                         <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
@@ -39,19 +39,33 @@
 
             <div class="form-group">
               <label for="sem">Semester</label>
-              <input type="text" required class="form-control" name = "sem" id="sem" placeholder="Enter Semester">
+              <input type="number" required class="form-control" name = "sem" id="sem" placeholder="Enter Semester">
             </div>
 
+
             <div class="form-group">
+    					 <label for="dep_name">Department Name</label>
+    					<input type="text" required list='department_list' placeholder="Select Department Name" name="dep_name" id="dep_name" class="form-control">
+    						<datalist id="department_list">
+    						</datalist>
+    				</div>
+
+            <!-- <div class="form-group">
               <label for="dep_name">Department Name</label>
               <input type="text" required class="form-control" name = "dep_name" id="dep_name" placeholder="Enter Department Name">
-            </div>
+            </div> -->
 
             <div class="form-group">
+    					<label for="fac_name">Faculty Name</label>
+    					<input type="text" required list='faculty_list' placeholder="Select Faculty Name" name="fac_name" id="fac_name" class="form-control">
+    						<datalist id="faculty_list">
+    						</datalist>
+    				</div>
+
+            <!-- <div class="form-group">
               <label for="fac_name">Faculty Name</label>
               <input type="text" required class="form-control" name = "fac_name" id="fac_name" placeholder="Enter Faculty Name">
-
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-success btn-block main-button">Add</button>
           </form>
         </div>

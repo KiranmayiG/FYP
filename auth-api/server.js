@@ -6,6 +6,9 @@ var users = require(__dirname + '/routes/users.js');
 var logins = require(__dirname + '/routes/logins.js');
 var user_view_details = require(__dirname + '/routes/user_view_details.js');
 var courses_list = require(__dirname + '/routes/courses_list.js');
+var faculty_list = require(__dirname + '/routes/faculty_list.js');
+var department_list = require(__dirname + '/routes/department_list.js');
+var insert_course = require(__dirname + '/routes/insert_course.js');
 var uploads_assignment = require(__dirname + '/routes/uploads_assignment.js');
 var uploads_notes = require(__dirname + '/routes/uploads_notes.js');
 var uploads_videos = require(__dirname + '/routes/uploads_videos.js');
@@ -92,6 +95,11 @@ router.get('/logout', function(req, res) {
 router.get('/user_view_details', ...withAuthUserId, user_view_details.get);
 
 router.get('/get_courses_list', ...withAuthUserId, courses_list.get);
+router.get('/get_faculty_list', ...withAuthUserId, faculty_list.get);
+router.get('/get_department_list', ...withAuthUserId, department_list.get);
+
+router.post('/insert_course', ...withAuthUserId, insert_course.post);
+
 
 router.post('/upload_assignment', ...withAuthUserId, uploads_assignment.post);
 router.post('/upload_notes', ...withAuthUserId, uploads_notes.post);
