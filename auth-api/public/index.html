@@ -45,7 +45,7 @@
 					<li id="login"><a data-toggle='modal' data-target='#login_modal'>Login</a></li>
 					<li id="logout" style="display:none"><a href='api/logout'>Logout</a></li>
 					<li><a href="contact.html">Contact Us</a></li>
-					<li><a href="view_details.html">View Details</a></li>
+					<li id="view_details" style="display:none"><a href="view_details.html">View Details</a></li>
 					<li id='upload_li' style="display:none" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Upload
                   <span class="caret"></span></a>
@@ -424,10 +424,15 @@ $(document).ready(function() {
 										beforeSubmit: showRequest, // pre-submit callback
 										success: showResponse // post-submit callback
 									}; // bind to the form's submit event
-						$('#frmUploader').submit(function () {
+						$('#assignmentFrmUploader').submit(function () {
 							$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
 							return false;
 							});
+
+							$('#frmUploader').submit(function () {
+								$(this).ajaxSubmit(options); // always return false to prevent standard browser submit and page navigation
+								return false;
+								});
 
 
 						});
@@ -441,6 +446,7 @@ let url="/api/get_user";
 				console.log('success:', result);
 				let login = document.getElementById('login');
 				let logout = document.getElementById('logout');
+				let view_details =document.getElementById('view_details');
 				let upload_li = document.getElementById('upload_li');
 				let add_li = document.getElementById('add_li');
 				let update_li =document.getElementById('update_li');
@@ -450,6 +456,8 @@ let url="/api/get_user";
 
 				login.style.display = 'none';
 				logout.style.display = 'block';
+				view_details.style.display = 'block';
+
 				let role = `${result.user.role}`;
 				if(role == "FACULTY"){
 					upload_li.style.display = 'block';
@@ -464,16 +472,38 @@ let url="/api/get_user";
 		.catch(error => {
 			let login = document.getElementById('login');
 			let logout = document.getElementById('logout');
+			let view_details =document.getElementById('view_details');
 			let upload_li = document.getElementById('upload_li');
 			let add_li =document.getElementById('add_li');
 			let update_li =document.getElementById('update_li');
 			login.style.display = 'block';
 			logout.style.display = 'none';
+			view_details.style.display = 'none';
 			upload_li.style.display = 'none';
 			update_li.style.display = 'none';
 			add_li.style.display = 'none';
 			console.log('error:', error);
 		});
+
+		let url_1="/api/get_courses_list";
+				fetch(url_1).then(response => response.json())
+				.then( (result) => {
+						console.log('success:', result);
+						let course_list = document.getElementById('course_list');
+
+						var i;
+						let text;
+						for (i = 0; i < result.courses.length; i++) {
+						  text += `<option value="${result.courses[i].course_name}"> `;
+							text += `\n`;
+						}
+						course_list.innerHTML = text;
+				})
+				.catch(error => {
+					console.log('error:', error);
+				});
+
+
 </script>
 
 

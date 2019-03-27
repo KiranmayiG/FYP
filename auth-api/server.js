@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var users = require(__dirname + '/routes/users.js');
 var logins = require(__dirname + '/routes/logins.js');
 var user_view_details = require(__dirname + '/routes/user_view_details.js');
+var courses_list = require(__dirname + '/routes/courses_list.js');
 var uploads_assignment = require(__dirname + '/routes/uploads_assignment.js');
 var uploads_notes = require(__dirname + '/routes/uploads_notes.js');
 var uploads_videos = require(__dirname + '/routes/uploads_videos.js');
@@ -68,10 +69,6 @@ router = express.Router();
 router.post('/users', users.post);
 router.post('/logins', logins.post);
 
-router.post('/upload_assignment', uploads_assignment.post);
-router.post('/upload_notes', uploads_notes.post);
-router.post('/upload_videos', uploads_videos.post);
-
 const withAuthUserId = [
   cookieParser(),
   (req, res, next) => {
@@ -93,6 +90,12 @@ router.get('/logout', function(req, res) {
 //app.get('/get_user', check_token.checkToken, logins.get);
 
 router.get('/user_view_details', ...withAuthUserId, user_view_details.get);
+
+router.get('/get_courses_list', ...withAuthUserId, courses_list.get);
+
+router.post('/upload_assignment', ...withAuthUserId, uploads_assignment.post);
+router.post('/upload_notes', ...withAuthUserId, uploads_notes.post);
+router.post('/upload_videos', ...withAuthUserId, uploads_videos.post);
 
 
 app.use('/api', router);

@@ -21,9 +21,9 @@ function post(req, res, next) {
 
    upload_notes(req, res, function(err) {
        if (err) {
-           return res.end("Something went wrong!");
+           return res.json({result: "Something went wrong!"});
        }
-       return res.end("Notes uploaded sucessfully!.");
+       return res.json({result: "Notes uploaded sucessfully!."});
    });
     // var name = req.body.name;
     // var course = req.body.course;
