@@ -17,29 +17,35 @@ async function post(req, res, next) {
 
     var user = req['authUserId'];
 
-    var check_course = await check_course(course);
+    try{
+      var checkCourse = await check_course(course);
 
-    if(check_course.length){
-      res.json({error: "Course already exists"});
-    }else{
+      if(checkCourse){
+        res.json({error: "Course already exists"});
+      }else{
 
-      if(user.role == "ADMIN"){
-        try{
-          department_id = await get_department_id(course);
-          faculty_id = await get_faculty_id(course);
+        if(user.role == "ADMIN"){
+          try{
+            department_id = await get_department_id(course);
+            faculty_id = await get_faculty_id(course);
 
-          course.department_id = department_id.department_id;
-          course.faculty_id = faculty_id.faculty_id;
+            course.department_id = department_id.department_id;
+            course.faculty_id = faculty_id.faculty_id;
 
-          console.log(course);
+            console.log(course);
 
-          insert_result = await insert_course(course);
-          console.log("after insert course",insert_result);
-        } catch (err){
-          console.error(err);
+            insert_result = await insert_course(course);
+            console.log("after insert course",insert_result);
+            res.redirect('/index');
+          } catch (err){
+            console.error(err);
+          }
         }
-      }
-  }
+    }
+    } catch (err){
+      console.error(err);
+    }
+
 
 
 }
