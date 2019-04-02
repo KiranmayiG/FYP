@@ -3,108 +3,192 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
-function post(req, res, next) {
-    var user = {
+async function post(req, res, next) {
+    var fac_name = req.body.fac_name;
+    var fac_name_split = fac_name.split(" ");
+    var course = {
         course_name: req.body.name,
         description: req.body.description,
         semester: req.body.semester,
-        dept_name: req.body.dept_name,
-        fac_name: req.body.fac_name
+        dept_name: req.body.dep_name,
+        fac_fname: fac_name_split[0],
+        fac_lname: fac_name_split[1]
     };
-    var unhashedPassword = req.body.password;
 
-    bcrypt.genSalt(10, function(err, salt) {
-        if (err) {
-            return next(err);
+    var user = req['authUserId'];
+
+    var check_course = await check_course(course);
+
+    if(check_course.length){
+      res.json({error: "Course already exists"});
+    }else{
+
+      if(user.role == "ADMIN"){
+        try{
+          department_id = await get_department_id(course);
+          faculty_id = await get_faculty_id(course);
+
+          course.department_id = department_id.department_id;
+          course.faculty_id = faculty_id.faculty_id;
+
+          console.log(course);
+
+          insert_result = await insert_course(course);
+          console.log("after insert course",insert_result);
+        } catch (err){
+          console.error(err);
         }
+      }
+  }
 
-        bcrypt.hash(unhashedPassword, salt, function(err, hash) {
-            if (err) {
-                return next(err);
-            }
 
-            user.hashedPassword = hash;
-
-            insertUser(user, function(err, user) {
-                var payload;
-
-                if (err) {
-                    return next(err);
-                }
-
-                payload = {
-                    sub: user.username,
-                    role: user.role
-                };
-
-                res.status(200).json({
-                    user: user,
-                    token: jwt.sign(payload, config.jwtSecretKey, {expiresInMinutes: 60})
-                });
-            });
-        });
-    });
 }
 
 module.exports.post = post;
 
-function insertUser(user, cb) {
-    var query = '';
-    if(user.role == "PARENT"){
-      query = 'insert into PARENT (USERNAME, PASSWORD, FNAME, LNAME, DOB) '+
-      'values (:username, :password, :fname, :lname, TO_DATE(:dob, \'DD/MM/YY\')) '+
-      'returning PARENT_ID, USERNAME '+
-      'into :rid, :rusername' ;
-    }
-    oracledb.getConnection(
-        config.database,
-        function(err, connection){
-            if (err) {
-                return cb(err);
-            }
+async function check_course(course){
+  var query = '';
+  query = 'select COURSE_NAME as "course_name" from COURSE where course_name = :course_name';
 
-            connection.execute(
-                query,
-                {
-                    username: user.username,
-                    password: user.hashedPassword,
-                    fname: user.fname,
-                    lname: user.lname,
-                    dob: user.dob,
-                    rid: {
-                        type: oracledb.NUMBER,
-                        dir: oracledb.BIND_OUT
-                    },
-                    rusername: {
-                        type: oracledb.STRING,
-                        dir: oracledb.BIND_OUT
-                    }
-                },
-                {
-                    autoCommit: true
-                },
-                function(err, results){
-                    if (err) {
-                        connection.release(function(err) {
-                            if (err) {
-                                console.error(err.message);
-                            }
-                        });
+  let connection;
 
-                        return cb(err);
-                    }
+  try {
+    connection = await oracledb.getConnection(config.database);
 
-                    cb(null, {
-                        id: results.outBinds.rid[0],
-                        username: results.outBinds.rusername[0]
-                    });
-
-                    connection.release(function(err) {
-                        if (err) {
-                            console.error(err.message);
-                        }
-                    });
-                });
-        }
+    let result = await connection.execute(
+      query,
+      {
+          course_name: course.course_name
+      },
+      {
+          outFormat: oracledb.OBJECT
+      },
     );
+    //console.log(result.rows);
+    let course_name = result.rows[0];
+    return course_name;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}
+
+async function get_department_id(course){
+  var query_dept = '';
+  query_dept = 'select DEPARTMENT_ID as "department_id" from DEPARTMENT where DEPARTMENT_NAME = :department_name';
+
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(config.database);
+
+    let result = await connection.execute(
+      query_dept,
+      {
+          department_name: course.dept_name
+      },
+      {
+          outFormat: oracledb.OBJECT
+      },
+    );
+    //console.log(result.rows);
+    let department_id = result.rows[0];
+    return department_id;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}
+
+async function get_faculty_id(course){
+  var query_fac = '';
+  query_fac = 'select FACULTY_ID as "faculty_id" from FACULTY where FNAME = :fname AND LNAME = :lname';
+
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(config.database);
+
+    let result = await connection.execute(
+      query_fac,
+      {
+          fname: course.fac_fname,
+          lname: course.fac_lname,
+      },
+      {
+          outFormat: oracledb.OBJECT
+      },
+    );
+    //console.log(result.rows);
+    let faculty_id = result.rows[0];
+    return faculty_id;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}
+
+
+
+async function insert_course(course){
+  var query = '';
+  query = 'insert into COURSE (COURSE_NAME, DESCRIPTION, SEMESTER, DEPARTMENT_ID, FACULTY_ID) '+
+  'values (:course_name, :description, :semester, :department_id, :faculty_id)';
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(config.database);
+
+    let result = await connection.execute(
+      query,
+      {
+          course_name: course.course_name,
+          description: course.description,
+          semester: course.semester,
+          department_id: course.department_id,
+          faculty_id: course.faculty_id,
+      },
+      {
+          autoCommit: true
+      },
+    );
+
+    console.log(result);
+    return result;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
 }
