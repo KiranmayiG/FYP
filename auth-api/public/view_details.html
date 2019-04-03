@@ -1,221 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<!-- Hero-area -->
+<div class="hero-area section">
 
-		<title>Details</title>
+	<!-- Backgound Image -->
+	<div class="bg-image bg-parallax overlay" style="background-image:url(./img/page-background.jpg)"></div>
+	<!-- /Backgound Image -->
 
-		<!-- Google font -->
-		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 text-center">
+				<ul class="hero-area-tree">
+					<li><a href="index.html">Home</a></li>
+					<li>Details</li>
+				</ul>
+				<h2 class="white-text">Personal Information</h2>
 
-		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
-		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="css/font-awesome.min.css">
-
-		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="css/style.css"/>
-
-    </head>
-	<body>
-
-<!-- Header -->
-
-<div id="include_header"></div>
-
-<!-- /Header -->
-
-		<!-- Hero-area -->
-		<div class="hero-area section">
-
-			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./img/page-background.jpg)"></div>
-			<!-- /Backgound Image -->
-
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1 text-center">
-						<ul class="hero-area-tree">
-							<li><a href="index.html">Home</a></li>
-							<li>Details</li>
-						</ul>
-						<h2 class="white-text">Personal Information</h2>
-
-					</div>
-				</div>
 			</div>
-
 		</div>
-		<!-- /Hero-area -->
+	</div>
 
-    <!-- Information area -->
-    <div id='student_details' style="display:none" class='container w3-animate-opacity'>
-      <div class='row'>
-          <div class='details'>
-              <div class="col-sm-2"></div>
-              <div class="col-sm-8 details">
-                  <h4><center><u>PERSONAL DETAILS</u></center></h4>
-              </div>
+</div>
+<!-- /Hero-area -->
+
+<!-- Information area -->
+<div id='student_details' style="display:none" class='container w3-animate-opacity'>
+  <div class='row'>
+      <div class='details'>
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8 details">
+              <h4><center><u>PERSONAL DETAILS</u></center></h4>
           </div>
       </div>
-        <div class='row'>
-            <div class='details'>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4 details">
-                    <h4>First name: </h4>
-                    <h4>Last name: </h4>
-                    <h4>Username: </h4>
-                    <h4>DOB: </h4>
-                    <h4>Phone: </h4>
-                    <h4>Date of Join: </h4>
-                    <h4>Semester: </h4>
+  </div>
+    <div class='row'>
+        <div class='details'>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 details">
+                <h4>First name: </h4>
+                <h4>Last name: </h4>
+                <h4>Username: </h4>
+                <h4>DOB: </h4>
+                <h4>Phone: </h4>
+                <h4>Date of Join: </h4>
+                <h4>Semester: </h4>
 
-                </div>
-                <div class="col-sm-4 details">
-                    <h4 id='fname'></h4>
-                    <h4 id='lname'></h4>
-                    <h4 id='username'></h4>
-                    <h4 id='dob'></h4>
-                    <h4 id='phone'></h4>
-                    <h4 id='doj'></h4>
-                    <h4 id='semester'></h4>
-
-                </div>
+            </div>
+            <div class="col-sm-4 details">
+                <h4 id='fname'></h4>
+                <h4 id='lname'></h4>
+                <h4 id='username'></h4>
+                <h4 id='dob'></h4>
+                <h4 id='phone'></h4>
+                <h4 id='doj'></h4>
+                <h4 id='semester'></h4>
 
             </div>
 
-        </div>
-
-        <div class='row'>
-            <div class='details'>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8 details">
-                    <hr>
-                    <h4><center><u>PARENT DETAILS</u></center></h4>
-                </div>
-            </div>
-        </div>
-
-        <div class='row'>
-            <div class='details'>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4 details">
-                  <h4>First name: </h4>
-                  <h4>Last name: </h4>
-                  <h4>Username: </h4>
-                  <h4>DOB: </h4>
-                  <h4>Phone: </h4>
-                </div>
-                <div class="col-sm-4 details">
-                  <h4 id='parent_fname'></h4>
-                  <h4 id='parent_lname'></h4>
-                  <h4 id='parent_username'></h4>
-                  <h4 id='parent_dob'></h4>
-                  <h4 id='parent_phone'></h4>
-                </div>
-            </div>
-        </div>
-
-        <div class='row'>
-            <div class='details'>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8 details">
-                    <hr>
-                    <h4><center><u>DEPARTMENT DETAILS</u></center></h4>
-                </div>
-            </div>
-        </div>
-
-        <div class='row'>
-            <div class='details'>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4 details">
-                  <h4>Department name: </h4>
-                </div>
-                <div class="col-sm-4 details">
-                  <h4 id='department_name'></h4>
-                </div>
-            </div>
         </div>
 
     </div>
-    <!-- /Information area -->
+
+    <div class='row'>
+        <div class='details'>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 details">
+                <hr>
+                <h4><center><u>PARENT DETAILS</u></center></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='details'>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 details">
+              <h4>First name: </h4>
+              <h4>Last name: </h4>
+              <h4>Username: </h4>
+              <h4>DOB: </h4>
+              <h4>Phone: </h4>
+            </div>
+            <div class="col-sm-4 details">
+              <h4 id='parent_fname'></h4>
+              <h4 id='parent_lname'></h4>
+              <h4 id='parent_username'></h4>
+              <h4 id='parent_dob'></h4>
+              <h4 id='parent_phone'></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='details'>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 details">
+                <hr>
+                <h4><center><u>DEPARTMENT DETAILS</u></center></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='details'>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 details">
+              <h4>Department name: </h4>
+            </div>
+            <div class="col-sm-4 details">
+              <h4 id='department_name'></h4>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /Information area -->
 
 
 
-		<!-- jQuery Plugins -->
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-		<script type="text/javascript" src="js/google-map.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script>
-		$(function(){
-		  $("#include_header").load("nav.html");
+<!-- jQuery Plugins -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script>
+
+let url="/api/user_view_details";
+		fetch(url).then(response => response.json())
+		.then( (result) => {
+				console.log('success:', result);
+        let role = `${result.user.role}`;
+        if(role == "STUDENT"){
+          let student_details = document.getElementById('student_details');
+          student_details.style.display = 'block';
+
+  				let fname = document.getElementById('fname');
+  				let lname = document.getElementById('lname');
+  				let username = document.getElementById('username');
+  				let dob = document.getElementById('dob');
+          let phone = document.getElementById('phone');
+  				let doj = document.getElementById('doj');
+  				let semester = document.getElementById('semester');
+
+
+          let parent_fname = document.getElementById('parent_fname');
+          let parent_lname = document.getElementById('parent_lname');
+          let parent_username = document.getElementById('parent_username');
+          let parent_dob = document.getElementById('parent_dob');
+          let parent_phone = document.getElementById('parent_phone');
+
+          let department_name = document.getElementById('department_name');
+
+          fname.innerHTML = `${result.user.fname}`;
+          lname.innerHTML = `${result.user.lname}`;
+          username.innerHTML = `${result.user.username}`;
+          dob.innerHTML = `${result.user.dob}`;
+          dob.innerHTML = dob.innerHTML.substr(0, 10);
+          phone.innerHTML = `${result.user.phone}`;
+          doj.innerHTML = `${result.user.doj}`;
+          doj.innerHTML = doj.innerHTML.substr(0, 10);
+          semester.innerHTML = `${result.user.semester}`;
+
+          parent_fname.innerHTML = `${result.user.parent_fname}`;
+          parent_lname.innerHTML = `${result.user.parent_lname}`;
+          parent_username.innerHTML = `${result.user.parent_username}`;
+          parent_dob.innerHTML = `${result.user.parent_dob}`;
+          parent_dob.innerHTML = parent_dob.innerHTML.substr(0, 10);
+          parent_phone.innerHTML = `${result.user.parent_phone}`;
+
+          department_name.innerHTML = `${result.user.department_name}`;
+
+        }
+				// if(role == "ADMIN"){
+				// 	update_li.style.display = 'block';
+				// 	add_li.style.display = 'block';
+				//}
+
+			//	div.innerHTML=`name: ${result.user.fname}<br/>username: ${result.user.username}`;
+		})
+		.catch(error => {
+			console.log('error:', error);
 		});
-
-    let url="/api/user_view_details";
-    		fetch(url).then(response => response.json())
-    		.then( (result) => {
-    				console.log('success:', result);
-            let role = `${result.user.role}`;
-            if(role == "STUDENT"){
-              let student_details = document.getElementById('student_details');
-              student_details.style.display = 'block';
-
-      				let fname = document.getElementById('fname');
-      				let lname = document.getElementById('lname');
-      				let username = document.getElementById('username');
-      				let dob = document.getElementById('dob');
-              let phone = document.getElementById('phone');
-      				let doj = document.getElementById('doj');
-      				let semester = document.getElementById('semester');
-
-
-              let parent_fname = document.getElementById('parent_fname');
-              let parent_lname = document.getElementById('parent_lname');
-              let parent_username = document.getElementById('parent_username');
-              let parent_dob = document.getElementById('parent_dob');
-              let parent_phone = document.getElementById('parent_phone');
-
-              let department_name = document.getElementById('department_name');
-
-              fname.innerHTML = `${result.user.fname}`;
-              lname.innerHTML = `${result.user.lname}`;
-              username.innerHTML = `${result.user.username}`;
-              dob.innerHTML = `${result.user.dob}`;
-              dob.innerHTML = dob.innerHTML.substr(0, 10);
-              phone.innerHTML = `${result.user.phone}`;
-              doj.innerHTML = `${result.user.doj}`;
-              doj.innerHTML = doj.innerHTML.substr(0, 10);
-              semester.innerHTML = `${result.user.semester}`;
-
-              parent_fname.innerHTML = `${result.user.parent_fname}`;
-              parent_lname.innerHTML = `${result.user.parent_lname}`;
-              parent_username.innerHTML = `${result.user.parent_username}`;
-              parent_dob.innerHTML = `${result.user.parent_dob}`;
-              parent_dob.innerHTML = parent_dob.innerHTML.substr(0, 10);
-              parent_phone.innerHTML = `${result.user.parent_phone}`;
-
-              department_name.innerHTML = `${result.user.department_name}`;
-
-            }
-    				// if(role == "ADMIN"){
-    				// 	update_li.style.display = 'block';
-    				// 	add_li.style.display = 'block';
-    				//}
-
-    			//	div.innerHTML=`name: ${result.user.fname}<br/>username: ${result.user.username}`;
-    		})
-    		.catch(error => {
-    			console.log('error:', error);
-    		});
-		</script>
-
-
-	</body>
-</html>
+</script>
