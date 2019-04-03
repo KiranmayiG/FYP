@@ -34,7 +34,7 @@ async function post(req, res, next) {
           console.log("after update event description",update_desc_result);
         }
 
-        //res.redirect('/index');
+        res.redirect('/index');
       } catch (err){
         console.error(err);
       }

@@ -4,18 +4,21 @@ var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
 async function post(req, res, next) {
-    var fac_name = req.body.fac_name;
-    var fac_name_split = fac_name.split(" ");
     var course = {
         name: req.body.c_name,
         new_name: req.body.c_new_name,
         description: req.body.c_description,
         semester: req.body.sem,
         dept_name: req.body.dep_name,
-        fac_full_name: fac_name,
-        fac_fname: fac_name_split[0],
-        fac_lname: fac_name_split[1]
+        fac_full_name: req.body.fac_name
     };
+
+    if(course.fac_full_name){
+      var fac_name = course.fac_full_name;
+      var fac_name_split = fac_name.split(" ");
+      course.fac_fname = fac_name_split[0],
+      course.fac_lname = fac_name_split[1]
+    }
 
 
     var user = req['authUserId'];

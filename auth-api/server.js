@@ -11,12 +11,13 @@ var faculty_list = require(__dirname + '/routes/faculty_list.js');
 var department_list = require(__dirname + '/routes/department_list.js');
 var events_list = require(__dirname + '/routes/events_list.js');
 
+var insert_event = require(__dirname + '/routes/insert_event.js');
 var insert_course = require(__dirname + '/routes/insert_course.js');
 var insert_department = require(__dirname + '/routes/insert_department.js');
-var insert_event = require(__dirname + '/routes/insert_event.js');
 
 var update_event = require(__dirname + '/routes/update_event.js');
 var update_course = require(__dirname + '/routes/update_course.js');
+var update_department = require(__dirname + '/routes/update_department.js');
 
 var uploads_assignment = require(__dirname + '/routes/uploads_assignment.js');
 var uploads_notes = require(__dirname + '/routes/uploads_notes.js');
@@ -108,12 +109,13 @@ router.get('/get_faculty_list', ...withAuthUserId, faculty_list.get);
 router.get('/get_department_list', ...withAuthUserId, department_list.get);
 router.get('/get_events_list', ...withAuthUserId, events_list.get);
 
+router.post('/insert_event', ...withAuthUserId, insert_event.post);
 router.post('/insert_course', ...withAuthUserId, insert_course.post);
 router.post('/insert_department', ...withAuthUserId, insert_department.post);
-router.post('/insert_event', ...withAuthUserId, insert_event.post);
 
 router.post('/update_event', ...withAuthUserId, update_event.post);
 router.post('/update_course', ...withAuthUserId, update_course.post);
+router.post('/update_department', ...withAuthUserId, update_department.post);
 
 
 router.post('/upload_assignment', ...withAuthUserId, uploads_assignment.post);
