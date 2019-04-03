@@ -65,6 +65,7 @@
 								<li><a data-toggle='modal' data-target='#add_course_modal' style="color:grey">Course</a></li>
 								<li><a data-toggle='modal' data-target='#add_department_modal' style="color:grey">Department</a></li>
 								<li id="add_student_li"><a style="color:grey">Student</a></li>
+								<li id="add_faculty_li"><a style="color:grey">Faculty</a></li>
               </ul>
           </li>
 				<!-- Saloni's edit to add end
@@ -164,6 +165,10 @@ $(function(){
 
 	$('#add_student_li').on('click',function(){
 		$("#main_body").load("add_student.html");
+	});
+
+	$('#add_faculty_li').on('click',function(){
+		$("#main_body").load("add_faculty.html");
 	});
 
 	$('#view_details').on('click',function(){
