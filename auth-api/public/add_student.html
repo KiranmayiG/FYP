@@ -21,51 +21,156 @@
 </div>
 <!-- /Hero-area -->
 
-<!-- Contact -->
-<div id="contact" class="section">
+<!-- container -->
+<div class="container">
 
-	<!-- container -->
-	<div class="container">
+	<!-- row -->
+	<div class="row">
 
-		<!-- row -->
-		<div class="row">
+		<!-- contact form -->
+		<div class="col-md-10 col-md-offset-1">
+				<br>
+				<h4><u>Student Details</u></h4>
+				<br>
+				<form role="form" action="/api/insert_student_parent" method="post">
+					<!-- csrf security -->
+					<input type="hidden" name="_csrf" value="{{ csrftoken }}" />
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_fname"><h4>First Name : </h4></label></div>
+							<div class="col-sm-9"><input type="text" required class="form-control" name="s_fname" id="s_fname" placeholder="Enter first name"></div>
+						</div>
+          </div>
 
-			<!-- contact form -->
-			<div class="col-md-6">
-				<div class="contact-form">
-					<h4>Send A Message</h4>
-					<form>
-						<input class="input" type="text" name="name" placeholder="Name">
-						<input class="input" type="email" name="email" placeholder="Email">
-						<input class="input" type="text" name="subject" placeholder="Subject">
-						<textarea class="input" name="message" placeholder="Enter your Message"></textarea>
-						<button class="main-button icon-button pull-right">Send Message</button>
-					</form>
-				</div>
-			</div>
-			<!-- /contact form -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_lname"><h4>Last Name : </h4></label></div>
+							<div class="col-sm-9"><input type="text" required class="form-control" name="s_lname" id="s_lname" placeholder="Enter last Name"></div>
+						</div>
+          </div>
 
-			<!-- contact information -->
-			<div class="col-md-5 col-md-offset-1">
-				<h4>Contact Information</h4>
-				<ul class="contact-details">
-					<li><i class="fa fa-envelope"></i>Edenschool@email.com</li>
-					<li><i class="fa fa-phone"></i>122-547-223-45</li>
-					<li><i class="fa fa-map-marker"></i>4476 Clement Street</li>
-				</ul>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_username"><h4>Username : </h4></label></div>
+							<div class="col-sm-9"><input type="email" required class="form-control" name="s_username" id="s_username" placeholder="Enter username"></div>
+						</div>
+          </div>
 
-				<!-- contact map -->
-				<div id="contact-map"></div>
-				<!-- /contact map -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_dob"><h4>Date of birth : </h4></label></div>
+							<div class="col-sm-9"><input type="date" required class="form-control" name="s_dob" id="s_dob"></div>
+						</div>
+          </div>
 
-			</div>
-			<!-- contact information -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_phone"><h4>Phone : </h4></label></div>
+							<div class="col-sm-9"><input type="tel" required class="form-control" name="s_phone" id="s_phone" placeholder="Enter phone number"></div>
+						</div>
+          </div>
 
-		</div>
-		<!-- /row -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_doj"><h4>Date of joining : </h4></label></div>
+							<div class="col-sm-9"><input type="date" required class="form-control" name="s_doj" id="s_doj"></div>
+						</div>
+          </div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_dep_name"><h4>Department Name : </h4></label></div>
+							<div class="col-sm-9">
+								<input type="text" required list='department_list' placeholder="Select Department Name" name="s_dep_name" id="s_dep_name" class="form-control">
+									<datalist id="department_list">
+									</datalist>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_semester"><h4>Semester: </h4></label></div>
+							<div class="col-sm-9"><input type="number" required min= "1" max="8" class="form-control" name="s_semester" id="s_semester" placeholder="Enter semester"></div>
+						</div>
+          </div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_password"><h4>Password: </h4></label></div>
+							<div class="col-sm-9"><input type="password" required pattern=".{8,}" class="form-control" name="s_password" id="s_password" placeholder="Minimum 8 characters"></div>
+						</div>
+          </div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="s_confirm_pwd"><h4>Confirm Password: </h4></label></div>
+							<div class="col-sm-9"><input type="password" required pattern=".{8,}" class="form-control" name="s_confirm_pwd" id="s_confirm_pwd" placeholder="Re-enter password"></div>
+						</div>
+          </div>
+
+					<br>
+					<h4><u>Parent Details</u></h4>
+					<br>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="p_fname"><h4>First Name : </h4></label></div>
+							<div class="col-sm-9"><input type="text" required class="form-control" name="p_fname" id="p_fname" placeholder="Enter first name"></div>
+						</div>
+          </div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="p_lname"><h4>Last Name : </h4></label></div>
+							<div class="col-sm-9"><input type="text" required class="form-control" name="p_lname" id="p_lname" placeholder="Enter last Name"></div>
+						</div>
+          </div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="p_username"><h4>Username : </h4></label></div>
+							<div class="col-sm-9"><input type="email" required class="form-control" name="p_username" id="p_username" placeholder="Enter username"></div>
+						</div>
+          </div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="p_dob"><h4>Date of birth : </h4></label></div>
+							<div class="col-sm-9"><input type="date" required class="form-control" name="p_dob" id="p_dob"></div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="p_phone"><h4>Phone : </h4></label></div>
+							<div class="col-sm-9"><input type="tel" required class="form-control" name="p_phone" id="p_phone" placeholder="Enter phone number"></div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="p_password"><h4>Password: </h4></label></div>
+							<div class="col-sm-9"><input type="password" required pattern=".{8,}" class="form-control" name="p_password" id="p_password" placeholder="Minimum 8 characters"></div>
+						</div>
+          </div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-3"><label for="p_confirm_pwd"><h4>Confirm Password: </h4></label></div>
+							<div class="col-sm-9"><input type="password" required pattern=".{8,}" class="form-control" name="p_confirm_pwd" id="p_confirm_pwd" placeholder="Re-enter password"></div>
+						</div>
+          </div>
+
+					 <center><button type="submit" class="btn btn-success btn-block main-button">Add Student</button></center>
+					 <br><br>
+
+				</form>
+	 </div>
+
 
 	</div>
-	<!-- /container -->
+	<!-- /row -->
 
 </div>
-<!-- /Contact -->
+<!-- /container -->

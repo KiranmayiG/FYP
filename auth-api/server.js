@@ -14,6 +14,7 @@ var events_list = require(__dirname + '/routes/events_list.js');
 var insert_event = require(__dirname + '/routes/insert_event.js');
 var insert_course = require(__dirname + '/routes/insert_course.js');
 var insert_department = require(__dirname + '/routes/insert_department.js');
+var insert_student_parent = require(__dirname + '/routes/insert_student_parent.js');
 
 var update_event = require(__dirname + '/routes/update_event.js');
 var update_course = require(__dirname + '/routes/update_course.js');
@@ -112,6 +113,7 @@ router.get('/get_events_list', ...withAuthUserId, events_list.get);
 router.post('/insert_event', ...withAuthUserId, insert_event.post);
 router.post('/insert_course', ...withAuthUserId, insert_course.post);
 router.post('/insert_department', ...withAuthUserId, insert_department.post);
+router.post('/insert_student_parent', ...withAuthUserId, insert_student_parent.post);
 
 router.post('/update_event', ...withAuthUserId, update_event.post);
 router.post('/update_course', ...withAuthUserId, update_course.post);
