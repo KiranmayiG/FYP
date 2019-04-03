@@ -11,7 +11,6 @@ async function post(req, res, next) {
         description: req.body.e_description,
     };
 
-
     var user = req['authUserId'];
 
     if(user.role == "ADMIN"){

@@ -7,8 +7,8 @@ async function post(req, res, next) {
     var fac_name = req.body.fac_name;
     var fac_name_split = fac_name.split(" ");
     var course = {
-        course_name: req.body.name,
-        description: req.body.description,
+        course_name: req.body.c_name,
+        description: req.body.c_description,
         semester: req.body.semester,
         dept_name: req.body.dep_name,
         fac_fname: fac_name_split[0],

@@ -38,6 +38,17 @@ async function get(req, res, next) {
       //console.log(courses);
       res.json({courses: courses});
     }
+
+    if(user.role == 'ADMIN'){
+      query = 'select COURSE_NAME as "course_name" from COURSE';
+      try{
+        courses = await get_all_courses(query);
+      } catch (err){
+        console.error(err);
+      }
+      //console.log(courses);
+      res.json({courses: courses});
+    }
 }
 
 module.exports.get = get;
@@ -86,6 +97,37 @@ async function get_faculty_courses(user, query){
       {
           department_id: user.department_id,
           faculty_id: user.faculty_id
+      },
+      {
+          outFormat: oracledb.OBJECT
+      },
+    );
+    //console.log(result.rows);
+    let courses = result.rows;
+    return courses;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}
+
+async function get_all_courses(query){
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(config.database);
+
+    let result = await connection.execute(
+      query,
+      {
       },
       {
           outFormat: oracledb.OBJECT
