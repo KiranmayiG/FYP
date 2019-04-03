@@ -538,6 +538,24 @@ let url="/api/get_user";
 						.catch(error => {
 							console.log('error:', error);
 						});
+
+				let url_4="/api/get_events_list";
+						fetch(url_4).then(response => response.json())
+						.then( (result) => {
+								console.log('success:', result);
+								let events_list = document.getElementById('events_list');
+
+								var i;
+								let text;
+								for (i = 0; i < result.events_list.length; i++) {
+								  text += `<option value="${result.events_list[i].e_name}"> `;
+									text += `\n`;
+								}
+								events_list.innerHTML = text;
+						})
+						.catch(error => {
+							console.log('error:', error);
+						});
 </script>
 
 
