@@ -3,6 +3,9 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 async function post(req, res, next) {
     var fac_name = req.body.fac_name;
     var fac_name_split = fac_name.split(" ");
@@ -14,6 +17,13 @@ async function post(req, res, next) {
         fac_fname: fac_name_split[0],
         fac_lname: fac_name_split[1]
     };
+
+    for (var key in course) {
+      if (course.hasOwnProperty(key)) {
+        course[key] = esapiEncoder.encodeForHTML(course[key]);
+        //console.log(course[key]);
+      }
+    }
 
     var user = req['authUserId'];
 

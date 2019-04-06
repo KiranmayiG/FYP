@@ -24,7 +24,7 @@ async function post(req, res, next) {
     for (var key in student) {
       if (student.hasOwnProperty(key)) {
         student[key] = esapiEncoder.encodeForHTML(student[key]);
-        console.log(student[key]);
+        //console.log(student[key]);
       }
     }
 

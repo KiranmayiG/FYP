@@ -3,6 +3,9 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 async function post(req, res, next) {
     var department = {
         name: req.body.d_name,
@@ -11,6 +14,13 @@ async function post(req, res, next) {
     };
 
     var user = req['authUserId'];
+
+    for (var key in department) {
+      if (department.hasOwnProperty(key)) {
+        department[key] = esapiEncoder.encodeForHTML(department[key]);
+        //console.log(course[key]);
+      }
+    }
 
     if(user.role == "ADMIN"){
       try{

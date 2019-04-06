@@ -3,11 +3,21 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 async function post(req, res, next) {
     var department = {
-        name: req.body.name,
-        description: req.body.description,
+        name: req.body.d_name,
+        description: req.body.d_description,
     };
+
+    for (var key in department) {
+      if (department.hasOwnProperty(key)) {
+        department[key] = esapiEncoder.encodeForHTML(department[key]);
+        //console.log(course[key]);
+      }
+    }
 
     var user = req['authUserId'];
 
