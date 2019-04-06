@@ -35,6 +35,10 @@ var csrf = require( 'csurf' ) ;
 var esapi= require('node-esapi');
 var esapiEncoder= esapi.encoder();
 
+// require('@snyk/nodejs-runtime-agent')
+// ({projectId: '69647065-aa88-42f9-b72f-14f14a4c3750',
+// });
+
 app = express();
 
 app.use(morgan('combined')); //logger
@@ -59,7 +63,7 @@ const csp = require('helmet-csp')
 // Allow loading resources only from white-listed domains
 app.use( csp( {
  directives: {
-   "script-src": ["'self'", "'unsafe-inline'"],
+   "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
    //https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600
    "style-src": [, "'self'", "'unsafe-inline'", 'https://maxcdn.bootstrapcdn.com'],
    "font-src": ["'self'", 'https://fonts.googleapis.com/css' , 'https://fonts.gstatic.com/s', 'https://maxcdn.bootstrapcdn.com'],
@@ -160,6 +164,7 @@ app.use('/api', router);
 
 
 app.get('/index', function (req, res) {
+req.acceptsLanguages("en");
 res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
