@@ -15,6 +15,8 @@ function post(req, res, next) {
     // var encoded_username = esapiEncoder.encodeForHTML(input_username);
     // console.log("encoded ", encoded_username);
 
+    var username = esapiEncoder.encodeForHTML(req.body.username);
+
     var query = '';
 
     if(role == "FACULTY"){
@@ -50,7 +52,7 @@ function post(req, res, next) {
             connection.execute(
                 query,
                 {
-                    username: req.body.username
+                    username: username
                 },
                 {
                     outFormat: oracledb.OBJECT

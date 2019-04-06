@@ -3,6 +3,9 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 async function post(req, res, next) {
 
     var faculty = {
@@ -12,6 +15,12 @@ async function post(req, res, next) {
         phone: req.body.f_phone,
         dept_name: req.body.f_dep_name
     };
+    for (var key in faculty) {
+      if (faculty.hasOwnProperty(key)) {
+        faculty[key] = esapiEncoder.encodeForHTML(faculty[key]);
+        console.log(faculty[key]);
+      }
+    }
 
     var user = req['authUserId'];
 

@@ -3,7 +3,12 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
+var esapi= require('node-esapi');
+var esapiEncoder= esapi.encoder();
+
 async function post(req, res, next) {
+
+  //esapiEncoder.encodeForHTML(input_username);
 
     var student = {
         fname: req.body.s_fname,
@@ -16,6 +21,13 @@ async function post(req, res, next) {
         semester: req.body.s_semester
     };
 
+    for (var key in student) {
+      if (student.hasOwnProperty(key)) {
+        student[key] = esapiEncoder.encodeForHTML(student[key]);
+        console.log(student[key]);
+      }
+    }
+
     var parent = {
         fname: req.body.p_fname,
         lname: req.body.p_lname,
@@ -23,6 +35,12 @@ async function post(req, res, next) {
         dob: req.body.p_dob,
         phone: req.body.p_phone
     };
+
+    for (var key in parent) {
+      if (parent.hasOwnProperty(key)) {
+        parent[key] = esapiEncoder.encodeForHTML(parent[key]);
+      }
+    }
 
     var user = req['authUserId'];
 

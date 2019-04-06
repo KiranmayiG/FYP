@@ -45,24 +45,51 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //security aspect
-app.disable( 'x-powered-by' ) ;
 
-app.use( function( req, res, next ) {
-  res.header( 'Strict-Transport-Security', 7776000000 ) ;
-  res.header( 'X-Frame-Options', 'SAMEORIGIN' ) ;
-  res.header( 'X-XSS-Protection', 0 ) ;
-  res.header( 'X-Content-Type-Options', 'nosniff' ) ;
-  next() ;
-} ) ;
-
-
+var helmet = require('helmet') //https://www.npmjs.com/package/helmet
 var hpp = require( 'hpp' ) ;
 app.use( bodyParser.urlencoded() ) ;
 app.use( hpp() ) ;
 
-var helmet = require('helmet')
+
 app.use(helmet());
 
+const csp = require('helmet-csp')
+
+// Allow loading resources only from white-listed domains
+app.use( csp( {
+ directives: {
+   "script-src": ["'self'", "'unsafe-inline'"],
+   //https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600
+   "style-src": [, "'self'", "'unsafe-inline'", 'https://maxcdn.bootstrapcdn.com'],
+   "font-src": ["'self'", 'https://fonts.googleapis.com/css' , 'https://fonts.gstatic.com/s', 'https://maxcdn.bootstrapcdn.com'],
+   //"img-src": [ path.join(__dirname + '/public/img')]
+   "img-src": ["'self'"],
+   "default-src": [ "'self'" ],
+ }
+} ) ) ;
+
+
+// Prevent opening page in frame or iframe to protect from clickjacking
+app.disable( 'x-powered-by' ) ;
+
+app.use(helmet.xssFilter())
+app.use(helmet.frameguard())
+// Prevents browser from caching and storing page
+app.use(helmet.noCache());
+ // Allow communication only on HTTPS
+ app.use(helmet.hsts());
+
+app.use( function( req, res, next ) {
+  res.header( 'Strict-Transport-Security', 7776000000 ) ;
+  // Prevent opening page in frame or iframe to protect from clickjacking
+  //It will prevent anyone from putting this page in an iframe unless it’s on the same origin. That generally means that you can put your own pages in iframes, but nobody else can.
+  res.header( 'X-Frame-Options', 'SAMEORIGIN' ) ;
+  res.header( 'X-XSS-Protection', 0 ) ;
+  // Forces browser to only use the Content-Type set in the response header instead of sniffing or guessing it
+  res.header( 'X-Content-Type-Options', 'nosniff' ) ;
+  next() ;
+} ) ;
 
 const rateLimit = require("express-rate-limit");
 
@@ -75,6 +102,8 @@ const apiLimiter = rateLimit({
 
 // only apply to requests that begin with /api/
 app.use("/api/", apiLimiter);
+
+
 
 //security aspect ends
 

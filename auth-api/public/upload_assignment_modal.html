@@ -14,22 +14,11 @@
 			<h4 style="color:white">Upload Assignment</h4>
 		</div>
 		<div class="modal-body" style="padding:40px 50px;">
-			<form id="assignmentFrmUploader" enctype="multipart/form-data" action="api/upload_assignment/" method="post">
-
-
-				<!-- csrf security -->
-				            <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
-
-				<!-- <div class="form-group">
-					<label for="assignment_name">Name</label>
-					<input type="text" required class="form-control" name="assignment_name" id="assignment_name" placeholder="Enter Assignment Name">
-				</div> -->
+			<form id="assignmentFrmUploader" action="/api/upload_assignment" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="course_name">Course</label>
 					<input type="text" required list='course_list' placeholder="Select Course" name="course_name" id="course_name" class="form-control">
 						<datalist id="course_list">
-							<!-- <option value="A">
-							<option value="B"> -->
 						</datalist>
 				</div>
 				<br>
