@@ -31,8 +31,8 @@
     "node-gyp": "^3.8.0",
     "oracledb": "github:oracle/node-oracledb#v3.1.2",
     "rebuild": "^0.1.2",
+    "shrinkwrap": "^0.4.0",
     "snyk": "^1.147.4",
-    "swig": "^1.4.2",
     "uglify-js": "^3.5.2"
   },
   "snyk": true
