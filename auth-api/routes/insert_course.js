@@ -31,7 +31,7 @@ async function post(req, res, next) {
       var checkCourse = await check_course(course);
 
       if(checkCourse){
-        res.json({error: "Course already exists"});
+        res.json({message: "Course already exists!"});
       }else{
 
         if(user.role == "ADMIN"){
@@ -46,8 +46,10 @@ async function post(req, res, next) {
 
             insert_result = await insert_course(course);
             console.log("after insert course",insert_result);
-            res.redirect('/index');
+            res.json({ message: 'Successfully added the course!'});
+            //res.redirect('/index');
           } catch (err){
+            res.json({ message: 'There was some issue while adding :(' });
             console.error(err);
           }
         }
@@ -55,9 +57,6 @@ async function post(req, res, next) {
     } catch (err){
       console.error(err);
     }
-
-
-
 }
 
 module.exports.post = post;

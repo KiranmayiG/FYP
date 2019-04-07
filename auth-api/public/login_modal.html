@@ -14,7 +14,8 @@
           <h4 style="color:white"><span class="glyphicon glyphicon-lock" style="color:white"></span> Login</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-          <form id='frmLogin' role="form" action="/api/logins" method="post">
+          <form id='frmLogin' role="form" method="post">
+          <!-- <form id='frmLogin' role="form" action="/api/logins" method="post"> -->
 
 <!-- csrf security -->
             <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
@@ -37,19 +38,59 @@
                   <option value="ADMIN">
                 </datalist>
             </div>
-            <div class="checkbox">
+            <!-- <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block main-button"><span class="glyphicon glyphicon-off"></span> Login</button>
+            </div> -->
+              <button id="loginSubmit" type="submit" class="btn btn-success btn-block main-button"><span class="glyphicon glyphicon-off"></span> Login</button>
           </form>
         </div>
-				<div id="token-display">
+				<!-- <div id="token-display">
             </div>
         <div class="modal-footer">
           <p>Forgot <a href="#">Password?</a></p>
-        </div>
+        </div> -->
       </div>
 
     </div>
   </div>
 </div>
+
+<script>
+         jQuery(document).ready(function(){
+            jQuery('#loginSubmit').click(async function(e){
+               e.preventDefault();
+            var formData =   {
+                 username: document.getElementById('username').value,
+                 password: document.getElementById('password').value,
+                 role: document.getElementById('role').value,
+                 }
+              doLoginAjax(formData).then( (data) => {
+                console.log(data);
+                  if(data.message){
+                    alert(data.message);
+                  }
+                  else{
+                    alert("ERROR: Please try again.");
+                  }
+
+                 window.location.reload();
+              } );
+
+               });
+            });
+            async function doLoginAjax(args) {
+              let result;
+
+              try {
+                  result = await $.ajax({
+                      url: "/api/logins",
+                      method: 'post',
+                      data: args
+                  });
+
+                  return result;
+              } catch (error) {
+                  console.error(error);
+              }
+          }
+</script>

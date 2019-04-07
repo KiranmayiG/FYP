@@ -15,8 +15,9 @@
           <h4 style="color:white">Add New Course</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
+          <form role="form" id="add_course_form" method="post">
 
-          <form role="form" action="/api/insert_course" method="post" onsubmit="return confirm('Is the form filled out correctly?');">
+          <!-- <form role="form" action="/api/insert_course" method="post" onsubmit="return confirm('Is the form filled out correctly?');"> -->
 
             <!-- csrf security -->
                         <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
@@ -73,3 +74,46 @@
     </div>
   </div>
 </div>
+
+
+<script>
+    $("form#add_course_form").submit(async function(e) {
+          e.preventDefault();
+       var formData =   {
+            c_name: document.getElementById('c_name').value,
+            c_description: document.getElementById('c_description').value,
+            semester: document.getElementById('semester').value,
+            dep_name: document.getElementById('dep_name').value,
+            fac_name: document.getElementById('fac_name').value
+            }
+         doAddCourseAjax(formData).then( (data) => {
+             if(data.message){
+               alert(data.message);
+             }
+             else{
+               alert("ERROR: Please try again.");
+             }
+              window.location.reload();
+
+         } );
+
+          });
+
+       async function doAddCourseAjax(args) {
+         let result;
+
+         try {
+             result = await $.ajax({
+                 url: "/api/insert_course",
+                 method: 'post',
+                 data: args
+             });
+
+             return result;
+         } catch (error) {
+             console.error(error);
+         }
+     }
+
+
+</script>

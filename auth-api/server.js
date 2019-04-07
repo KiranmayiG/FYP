@@ -52,7 +52,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var helmet = require('helmet') //https://www.npmjs.com/package/helmet
 var hpp = require( 'hpp' ) ;
-app.use( bodyParser.urlencoded() ) ;
 app.use( hpp() ) ;
 
 

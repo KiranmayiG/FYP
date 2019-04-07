@@ -32,7 +32,8 @@
 				<br>
 				<h4><u>Student Details</u></h4>
 				<br>
-				<form role="form" action="/api/insert_student_parent" method="post" onsubmit="return confirm('Is the form filled out correctly?');">
+					<form role="form" id="add_student_form"  method="post">
+				<!-- <form role="form" action="/api/insert_student_parent" method="post" onsubmit="return confirm('Is the form filled out correctly?');"> -->
 					<!-- csrf security -->
 					<input type="hidden" name="_csrf" value="{{ csrftoken }}" />
 					<div class="form-group">
@@ -174,3 +175,55 @@
 
 </div>
 <!-- /container -->
+
+<script>
+	$("form#add_student_form").submit(async function(e) {
+               e.preventDefault();
+            var formData =   {
+                 s_fname: document.getElementById('s_fname').value,
+                 s_lname: document.getElementById('s_lname').value,
+                 s_username: document.getElementById('s_username').value,
+								 s_dob: document.getElementById('s_dob').value,
+                 s_phone: document.getElementById('s_phone').value,
+                 s_doj: document.getElementById('s_doj').value,
+								 s_dep_name: document.getElementById('s_dep_name').value,
+								 s_semester: document.getElementById('s_semester').value,
+								 s_password: document.getElementById('s_password').value,
+								 s_confirm_pwd: document.getElementById('s_confirm_pwd').value,
+								 p_fname: document.getElementById('p_fname').value,
+                 p_lname: document.getElementById('p_lname').value,
+                 p_username: document.getElementById('p_username').value,
+								 p_dob: document.getElementById('p_dob').value,
+								 p_phone: document.getElementById('p_phone').value,
+								 p_password: document.getElementById('p_password').value,
+								 p_confirm_pwd: document.getElementById('p_confirm_pwd').value
+
+                 }
+              doInsertStudentAjax(formData).then( (data) => {
+								if(data.message){
+									alert(data.message);
+								}
+								else{
+									alert("ERROR: Please try again.");
+								}
+									$("#main_body").load("add_student.html");
+              } );
+
+               });
+
+            async function doInsertStudentAjax(args) {
+              let result;
+
+              try {
+                  result = await $.ajax({
+                      url: "/api/insert_student_parent",
+                      method: 'post',
+                      data: args
+                  });
+
+                  return result;
+              } catch (error) {
+                  console.error(error);
+              }
+          }
+</script>

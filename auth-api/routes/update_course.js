@@ -68,8 +68,10 @@ async function post(req, res, next) {
           update_fac_result = await update_course_faculty(course);
           console.log("after update course faculty",update_fac_result);
         }
-        res.redirect('/index');
+        res.json({ message: 'Successfully updated the course!'});
+        //res.redirect('/index');
       } catch (err){
+        res.json({ message: 'There was some issue while adding :(' });
         console.error(err);
       }
     }

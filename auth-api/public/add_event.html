@@ -15,8 +15,9 @@
           <h4 style="color:white">Add New Event</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
+          <form id="add_event_form" role="form" method="post">
 
-          <form role="form" action="/api/insert_event" method="post" onsubmit="return confirm('Is the form filled out correctly?');">
+          <!-- <form id="add_event_form" role="form" action="/api/insert_event" method="post" onsubmit="return confirm('Is the form filled out correctly?');"> -->
 
             <!-- csrf security -->
                         <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
@@ -39,7 +40,7 @@
 
             <div class="form-group">
               <label for="e_description">Description</label>
-              <input type="text" class="form-control" name = "e_description" id="e_description" placeholder="Write Description here">
+              <input type="text" required class="form-control" name = "e_description" id="e_description" placeholder="Write Description here">
 
             </div>
 
@@ -50,3 +51,42 @@
 </div>
 </div>
 </div>
+<script>
+    $("form#add_event_form").submit(async function(e) {
+          e.preventDefault();
+       var formData =   {
+            e_name: document.getElementById('e_name').value,
+            e_date: document.getElementById('e_date').value,
+            e_description: document.getElementById('e_description').value
+            }
+         doAddEventAjax(formData).then( (data) => {
+             if(data.message){
+               alert(data.message);
+             }
+             else{
+               alert("ERROR: Please try again.");
+             }
+
+            window.location.reload();
+         } );
+
+          });
+
+       async function doAddEventAjax(args) {
+         let result;
+
+         try {
+             result = await $.ajax({
+                 url: "/api/insert_event",
+                 method: 'post',
+                 data: args
+             });
+
+             return result;
+         } catch (error) {
+             console.error(error);
+         }
+     }
+
+
+</script>

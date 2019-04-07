@@ -72,7 +72,8 @@ function post(req, res, next) {
 
                     user = results.rows[0];
 
-                    bcrypt.compare(req.body.password, user.password, function(err, pwMatch) {
+                    if(user){
+                      bcrypt.compare(req.body.password, user.password, function(err, pwMatch) {
                         var payload;
 
                         if (err) {
@@ -80,7 +81,10 @@ function post(req, res, next) {
                         }
 
                         if (!pwMatch) {
-                            res.status(401).send({message: 'Invalid email or password.'});
+                          //  res.status(401).send({message: 'Invalid email or password.'});
+                          res.json({
+                              message:"Invalid credentials. Please try again."
+                          });
                             return;
                         }
 
@@ -94,18 +98,25 @@ function post(req, res, next) {
 
                         if(token){
                           res.cookie('token', token);
-                          res.redirect('/index');
+                          res.json({ message: "Successfully logged in!" });
+                          //res.redirect('/index');
                           // res.json({
                           //   success: true,
                           //   message: 'Authentication successful!',
                           //   token: token
                           // });
                         }else{
+
                           res.status(403).json({
                               message:"Not created"
                           });
                         }
                     });
+                  }else{
+                    res.json({
+                        message:"Invalid credentials. Please try again."
+                    });
+                  }
 
                     connection.release(function(err) {
                         if (err) {

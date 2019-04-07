@@ -32,7 +32,8 @@
 				<br>
 				<h4><u>Faculty Details</u></h4>
 				<br>
-				<form role="form" action="/api/insert_faculty" method="post" onsubmit="return confirm('Is the form filled out correctly?');">
+				<form id="add_faculty_form" role="form" method="post" >
+				<!-- <form role="form" action="/api/insert_faculty" method="post" onsubmit="return confirm('Is the form filled out correctly?');"> -->
 					<!-- csrf security -->
 					<input type="hidden" name="_csrf" value="{{ csrftoken }}" />
 					<div class="form-group">
@@ -99,3 +100,44 @@
 
 </div>
 <!-- /container -->
+
+<script>
+	$("form#add_faculty_form").submit(async function(e) {
+               e.preventDefault();
+            var formData =   {
+                 f_fname: document.getElementById('f_fname').value,
+                 f_lname: document.getElementById('f_lname').value,
+                 f_username: document.getElementById('f_username').value,
+                 f_phone: document.getElementById('f_phone').value,
+								 f_dep_name: document.getElementById('f_dep_name').value,
+								 f_password: document.getElementById('f_password').value,
+								 f_confirm_pwd: document.getElementById('f_confirm_pwd').value
+                 }
+              doInsertFacultyAjax(formData).then( (data) => {
+								if(data.message){
+									alert(data.message);
+								}
+								else{
+									alert("ERROR: Please try again.");
+								}
+									$("#main_body").load("add_faculty.html");
+              } );
+
+               });
+
+            async function doInsertFacultyAjax(args) {
+              let result;
+
+              try {
+                  result = await $.ajax({
+                      url: "/api/insert_faculty",
+                      method: 'post',
+                      data: args
+                  });
+
+                  return result;
+              } catch (error) {
+                  console.error(error);
+              }
+          }
+</script>
