@@ -32,7 +32,7 @@
 				<br>
 				<h4><u>Student Details</u></h4>
 				<br>
-				<form role="form" action="/api/insert_student_parent" method="post">
+				<form role="form" action="/api/insert_student_parent" method="post" onsubmit="return confirm('Is the form filled out correctly?');">
 					<!-- csrf security -->
 					<input type="hidden" name="_csrf" value="{{ csrftoken }}" />
 					<div class="form-group">

@@ -16,7 +16,7 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
 
-          <form role="form" action="/api/update_course" method="post">
+          <form role="form" action="/api/update_course" method="post" onsubmit="return confirm('Is the form filled out correctly?');">
 
             <!-- csrf security -->
                         <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
