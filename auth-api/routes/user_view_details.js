@@ -3,10 +3,6 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var config = require(__dirname + '../../config.js');
 
-
-const cookieParser = require('cookie-parser');
-
-
 async function get(req, res, next) {
 
     var user = req['authUserId'];
@@ -14,9 +10,76 @@ async function get(req, res, next) {
     var user_view = user;
 
     delete user_view.password;
-    if(user_view.role == "PARENT"){
-      delete user_view.parent_id;
-      res.json({user: user_view});
+
+    if(user_view.role == "ADMIN"){
+
+      try{
+        delete user_view.admin_id;
+
+        console.log("UserView ", user_view);
+
+        res.json({user: user_view});
+
+      } catch (err){
+        console.error(err);
+      }
+
+
+    }
+
+    else if(user_view.role == "FACULTY"){
+
+      try{
+        department_details = await get_department_details(user_view);
+
+        user_view.department_name = department_details.department_name;
+        user_view.department_description = department_details.department_description;
+
+        delete user_view.department_id;
+        delete user_view.faculty_id;
+
+        //console.log("UserView ", user_view);
+
+        res.json({user: user_view});
+
+      } catch (err){
+        console.error(err);
+      }
+
+
+    }
+
+    else if(user_view.role == "PARENT"){
+
+      try{
+        student_details = await get_student_details(user_view);
+
+        user_view.student_fname = student_details.student_fname;
+        user_view.student_lname = student_details.student_lname;
+        user_view.student_username = student_details.student_username;
+        user_view.student_dob = student_details.student_dob;
+        user_view.student_phone = student_details.student_phone;
+        user_view.student_doj = student_details.student_doj;
+        user_view.student_semester = student_details.student_semester;
+        user_view.department_id = student_details.department_id;
+
+        department_details = await get_department_details(user_view);
+
+        user_view.department_name = department_details.department_name;
+        user_view.department_description = department_details.department_description;
+
+        delete user_view.department_id;
+        delete user_view.parent_id;
+
+        //console.log("UserView ", user_view);
+
+        res.json({user: user_view});
+
+      } catch (err){
+        console.error(err);
+      }
+
+
     }
     else if (user_view.role == "STUDENT"){
       delete user_view.student_id;
@@ -78,6 +141,44 @@ async function get_parent_details(user_view){
     //console.log(result.rows);
     let parent_details = result.rows[0];
     return parent_details;
+
+  } catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}
+
+async function get_student_details(user_view){
+  var query = '';
+  query = 'select FNAME as "student_fname", LNAME as "student_lname", USERNAME as "student_username", '+
+  'DOB as "student_dob", PHONE as "student_phone", '+
+  'DATE_OF_JOIN as "student_doj", DEPARTMENT_ID as "department_id", SEMESTER as "student_semester" '+
+  'from STUDENT where PARENT_ID = :parent_id';
+
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(config.database);
+
+    let result = await connection.execute(
+      query,
+      {
+          parent_id: user_view.parent_id
+      },
+      {
+          outFormat: oracledb.OBJECT
+      },
+    );
+    //console.log(result.rows);
+    let student_details = result.rows[0];
+    return student_details;
 
   } catch (err) {
     console.error(err);
