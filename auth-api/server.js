@@ -154,7 +154,7 @@ router.get('/get_user', ...withAuthUserId, (req, res) => {
   res.json({user: req['authUserId']});
 });
 
-router.get('/logout', function(req, res) {
+router.get('/logout/', function(req, res) {
   res.clearCookie("token");
   res.redirect('/index');
 });
