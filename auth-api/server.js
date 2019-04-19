@@ -73,6 +73,29 @@ app.use( csp( {
  }
 } ) ) ;
 
+// Adding XSS prevention header block
+
+app.use(function(req, res, next) {
+    res.header("X-XSS-Protection", "1; mode=block");
+    next();
+});
+
+app.use(function(req, res, next) {
+    res.header("X-Content-Type-Options", "nosniff");
+    next();
+});
+
+app.use(function(req, res, next) {
+    res.header("Strict-Transport-Security", "max-age=31536000");
+    next();
+});
+
+// app.use(function(req, res, next) {
+//     res.header("Content-Security-Policy", "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';");
+//     next();
+// });
+
+
 
 // Prevent opening page in frame or iframe to protect from clickjacking
 app.disable( 'x-powered-by' ) ;
