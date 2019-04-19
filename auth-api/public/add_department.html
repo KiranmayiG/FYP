@@ -15,8 +15,9 @@
           <h4 style="color:white">Add New Department</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
+          <form id="add_department_form" role="form" method="post">
 
-          <form role="form" action="/api/insert_department" method="post" onsubmit="return confirm('Is the form filled out correctly?');">
+          <!-- <form role="form" action="/api/insert_department" method="post" onsubmit="return confirm('Is the form filled out correctly?');"> -->
 
             <!-- csrf security -->
                         <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
@@ -33,7 +34,7 @@
             <div class="form-group">
 
               <label for="d_description">Description</label>
-              <input type="text" class="form-control" name = "d_description" id="d_description" placeholder="Write Description here">
+              <input type="text" required class="form-control" name = "d_description" id="d_description" placeholder="Write Description here">
 
             </div>
 
@@ -44,3 +45,42 @@
 </div>
 </div>
 </div>
+
+<script>
+    $("form#add_department_form").submit(async function(e) {
+          e.preventDefault();
+       var formData =   {
+            d_name: document.getElementById('d_name').value,
+            d_description: document.getElementById('d_description').value
+            }
+         doAddDepartmentAjax(formData).then( (data) => {
+             if(data.message){
+               alert(data.message);
+             }
+             else{
+               alert("ERROR: Please try again.");
+             }
+
+            window.location.reload();
+         } );
+
+          });
+
+       async function doAddDepartmentAjax(args) {
+         let result;
+
+         try {
+             result = await $.ajax({
+                 url: "/api/insert_department",
+                 method: 'post',
+                 data: args
+             });
+
+             return result;
+         } catch (error) {
+             console.error(error);
+         }
+     }
+
+
+</script>

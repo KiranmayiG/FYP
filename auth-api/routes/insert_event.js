@@ -23,18 +23,20 @@ async function post(req, res, next) {
 
     var user = req['authUserId'];
 
-    try{
+      try{
       var checkEvent = await check_event(event_val);
       if(checkEvent){
-        res.json({error: "Event already exists"});
+        res.json({message: "Event already exists"});
       }else{
 
         if(user.role == "ADMIN"){
           try{
             insert_result = await insert_event(event_val);
             console.log("after insert event",insert_result);
-            res.redirect('/index');
+            res.json({ message: 'Successfully added the event!'});
+            //res.redirect('/index');
           } catch (err){
+            res.json({ message: 'There was some issue while adding :(' });
             console.error(err);
           }
         }
@@ -42,6 +44,7 @@ async function post(req, res, next) {
     } catch (err){
       console.error(err);
     }
+
 
 
 }

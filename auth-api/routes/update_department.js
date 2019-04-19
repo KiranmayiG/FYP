@@ -37,9 +37,10 @@ async function post(req, res, next) {
           update_desc_result = await update_department_description(department);
           console.log("after update department description",update_desc_result);
         }
-
-        res.redirect('/index');
+        res.json({ message: 'Successfully updated the department!'});
+        //res.redirect('/index');
       } catch (err){
+        res.json({ message: 'There was some issue while adding :(' });
         console.error(err);
       }
     }

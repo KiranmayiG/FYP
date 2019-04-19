@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var users = require(__dirname + '/routes/users.js');
 var logins = require(__dirname + '/routes/logins.js');
+var logins_without_security = require(__dirname + '/routes/logins_without_security.js');
 var user_view_details = require(__dirname + '/routes/user_view_details.js');
 
 var courses_list = require(__dirname + '/routes/courses_list.js');
@@ -52,7 +53,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var helmet = require('helmet') //https://www.npmjs.com/package/helmet
 var hpp = require( 'hpp' ) ;
-app.use( bodyParser.urlencoded() ) ;
 app.use( hpp() ) ;
 
 
@@ -139,6 +139,7 @@ app.use("/api/", apiLimiter);
 router = express.Router();
 router.post('/users', users.post);
 router.post('/logins', logins.post);
+router.post('/logins_without_security', logins_without_security.post);
 
 const withAuthUserId = [
   cookieParser(),

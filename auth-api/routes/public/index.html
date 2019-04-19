@@ -10,6 +10,8 @@
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 		<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+		<link rel="stylesheet" href="./../node_modules/popups/css/popupS.css">
+
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -133,6 +135,7 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/nav.js"></script>
+<script type="text/javascript" src="./../node_modules/popups/dist/popupS.js"></script>
 
 <!-- esapi4js dependencies -->
 <script type="text/javascript" language="JavaScript" src="/esapi4js/lib/log4js.js"></script>
@@ -218,23 +221,7 @@ function showResponse(responseText, statusText, xhr, $form) { alert('status: ' +
 					console.log('error:', error);
 				});
 
-			let url_2="/api/get_faculty_list";
-					fetch(url_2).then(response => response.json())
-					.then( (result) => {
-							console.log('success:', result);
-							let faculty_list = document.getElementById('faculty_list');
 
-							var i;
-							let text;
-							for (i = 0; i < result.faculty_list.length; i++) {
-							  text += `<option value="${result.faculty_list[i].fname} ${result.faculty_list[i].lname}"> `;
-								text += `\n`;
-							}
-							faculty_list.innerHTML = text;
-					})
-					.catch(error => {
-						console.log('error:', error);
-					});
 
 				let url_3="/api/get_department_list";
 						fetch(url_3).then(response => response.json())

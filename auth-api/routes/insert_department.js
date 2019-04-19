@@ -24,15 +24,17 @@ async function post(req, res, next) {
     try{
       var check_dept = await check_department(department);
       if(check_dept){
-        res.json({error: "Department already exists"});
+        res.json({message: "Department already exists"});
       }else{
 
         if(user.role == "ADMIN"){
           try{
             insert_result = await insert_department(department);
             console.log("after insert department",insert_result);
-            res.redirect('/index');
+            res.json({ message: 'Successfully added the department!'});
+            //res.redirect('/index');
           } catch (err){
+            res.json({ message: 'There was some issue while adding :(' });
             console.error(err);
           }
         }

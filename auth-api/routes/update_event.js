@@ -43,9 +43,10 @@ async function post(req, res, next) {
           update_desc_result = await update_event_description(event_val);
           console.log("after update event description",update_desc_result);
         }
-
-        res.redirect('/index');
+        res.json({ message: 'Successfully updated the event!'});
+        //res.redirect('/index');
       } catch (err){
+        res.json({ message: 'There was some issue while adding :(' });
         console.error(err);
       }
     }

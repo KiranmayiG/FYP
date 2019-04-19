@@ -39,12 +39,14 @@ async function post(req, res, next) {
           insert_faculty_result = await insert_faculty(faculty);
           console.log("after insert faculty",insert_faculty_result);
 
-          res.redirect('/index');
+          res.json({ message: 'Successfully added the faculty!'});
+          //res.redirect('/index');
         }else{
-          res.json({error: "Passwords don't match"});
+          res.json({message: "Passwords don't match. Please try again."});
         }
       }
     } catch (err){
+      res.json({err: err});
       console.error(err);
     }
 
