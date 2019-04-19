@@ -45,8 +45,8 @@
 
 
             <div class="form-group">
-    					 <label for="dep_name">Department Name</label>
-    					<input type="text" required list='department_list' placeholder="Select Department Name" name="dep_name" id="dep_name" class="form-control">
+    					 <label for="c_dep_name">Department Name</label>
+    					<input type="text" required list='department_list' placeholder="Select Department Name" name="c_dep_name" id="c_dep_name" class="form-control">
     						<datalist id="department_list">
     						</datalist>
     				</div>
@@ -57,8 +57,8 @@
             </div> -->
 
             <div class="form-group">
-    					<label for="fac_name">Faculty Name</label>
-    					<input type="text" required list='faculty_list' placeholder="Select Faculty Name" name="fac_name" id="fac_name" class="form-control">
+    					<label for="c_fac_name">Faculty Name</label>
+    					<input type="text" required list='faculty_list' placeholder="Select Faculty Name" name="c_fac_name" id="c_fac_name" class="form-control">
     						<datalist id="faculty_list">
     						</datalist>
     				</div>
@@ -67,7 +67,7 @@
               <label for="fac_name">Faculty Name</label>
               <input type="text" required class="form-control" name = "fac_name" id="fac_name" placeholder="Enter Faculty Name">
             </div> -->
-            <button type="submit" class="btn btn-success btn-block main-button">Add</button>
+            <button id="addCourseSubmit" type="submit" class="btn btn-success btn-block main-button">Add</button>
           </form>
         </div>
         </div>
@@ -83,8 +83,8 @@
             c_name: document.getElementById('c_name').value,
             c_description: document.getElementById('c_description').value,
             semester: document.getElementById('semester').value,
-            dep_name: document.getElementById('dep_name').value,
-            fac_name: document.getElementById('fac_name').value
+            dep_name: document.getElementById('c_dep_name').value,
+            fac_name: document.getElementById('c_fac_name').value
             }
          doAddCourseAjax(formData).then( (data) => {
              if(data.message){
@@ -116,4 +116,48 @@
      }
 
 
+
 </script>
+
+     <!-- async function display_faculty(){
+  //$(document).ready(function(){
+  //$("input#c_dep_name").change(async function(e){
+      console.log("entered dep_name");
+    //  e.preventDefault();
+      document.getElementById('display_after_department').style.display = 'block';
+      document.getElementById('c_fac_name').style.display = 'block';
+      document.getElementById('faculty_list').style.display = 'block';
+      document.getElementById('addCourseSubmit').style.display = 'block';
+      var formData = {
+        dep_name: document.getElementById('c_dep_name').value
+      }
+      getFacultyListAjax(formData).then( (data) => {
+
+        let faculty_list = document.getElementById('faculty_list');
+
+        var i;
+        let text;
+        for (i = 0; i < data.faculty_list.length; i++) {
+          text += ('<option value='+data.faculty_list[i].fname+' '+data.faculty_list[i].lname'+'>');
+          text += '\n';
+        }
+        faculty_list.innerHTML = text;
+      } );
+  }//);
+//});
+
+    async function getFacultyListAjax(args) {
+      let result;
+
+      try {
+          result = await $.ajax({
+              url: "/api/get_faculty_list",
+              method: 'post',
+              data: args
+          });
+
+          return result;
+      } catch (error) {
+          console.error(error);
+      }
+  } -->

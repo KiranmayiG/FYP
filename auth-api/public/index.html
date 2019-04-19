@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Eden School</title>
+		<title>Jeman School</title>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 		<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
@@ -282,25 +282,6 @@ var now = new Date(),
 
 $('#Edate').prop('min', minDate);
 
-</script>
-
-<script type="text/javascript" language="JavaScript">
-Base.esapi.properties.logging['ApplicationLogger'] = {
-Level: org.owasp.esapi.Logger.ALL,
-Appenders: [ new Log4js.ConsoleAppender() ],
-LogUrl: true,
-LogApplicationName: true,
-EncodingRequired: true
-};
-
-Base.esapi.properties.application.Name = "My Application v1.0";
-org.owasp.esapi.ESAPI.initialize();
- $ESAPI.logger(’ApplicationLogger’).info(org.owasp.esapi.Logger.EventType.
-EVENT_SUCCESS, ’This is a test message’);
- document.writeln( $ESAPI.encoder().encodeForHTML( "<a href=\"http://owaspesapi-js.googlecode.com\">Check out esapi4js</a>" ) );
- var validateCreditCard = function() {
-	return $ESAPI.validator().isValidCreditCard( $(’CreditCard’).value );
-}
 </script>
 
 <script>
