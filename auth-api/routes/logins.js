@@ -100,7 +100,7 @@ function post(req, res, next) {
                             role: role
                         };
 
-                        var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: '24h'});
+                        var token = jwt.sign(payload, config.jwtSecretKey, {expiresIn: '1h'});
 
                         if(token){
                           res.cookie('token', token);

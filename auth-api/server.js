@@ -129,12 +129,7 @@ const apiLimiter = rateLimit({
 
 // only apply to requests that begin with /api/
 app.use("/api/", apiLimiter);
-
-
-
 //security aspect ends
-
-
 
 router = express.Router();
 router.post('/users', users.post);
@@ -182,7 +177,6 @@ router.post('/update_department', ...withAuthUserId, update_department.post);
 router.post('/upload_assignment', ...withAuthUserId, uploads_assignment.post);
 router.post('/upload_notes', ...withAuthUserId, uploads_notes.post);
 router.post('/upload_videos', ...withAuthUserId, uploads_videos.post);
-
 
 app.use('/api', router);
 
